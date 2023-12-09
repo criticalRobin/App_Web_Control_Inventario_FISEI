@@ -96,10 +96,11 @@ class Task(models.Model):
         User, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Usuario"
     )
     STATUS_CHOICES = (
-        ("pending", "Pending"),
-        ("in progress", "In Progress"),
-        ("completed", "Completed"),
+        ("pending", "Pendiente"),
+        ("in progress", "En progreso"),
+        ("completed", "Completada"),
     )
+    status = models.CharField(choices=STATUS_CHOICES, max_length=20, default="pending")
 
     def __str__(self):
         return self.description
