@@ -1,5 +1,6 @@
 from django.db import models
 from apps.users.models import User
+from django.utils import timezone
 
 
 # Create your models here.
@@ -76,6 +77,7 @@ class Recommendation(models.Model):
     user_id = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Usuario"
     )
+    date = models.DateField(default=timezone.now, verbose_name="Fecha")
 
     def __str__(self):
         return self.description
