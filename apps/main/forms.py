@@ -160,5 +160,5 @@ class CreateProcessorForm(forms.ModelForm):
         self.fields["brand"].widget.attrs["autofocus"] = True
 
     class Meta:
-        model = Disk
+        model = Processor
         fields = "__all__"
