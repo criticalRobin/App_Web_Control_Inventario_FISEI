@@ -20,4 +20,5 @@ from django.urls import path, include  # new
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+    path("users/", include("apps.users.urls")),
 ]
