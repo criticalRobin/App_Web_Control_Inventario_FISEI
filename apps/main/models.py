@@ -14,8 +14,6 @@ class Laboratory(models.Model):
     fire_extinguisher = models.BooleanField(verbose_name="Extintor")
     trash_can = models.BooleanField(verbose_name="Basurero")
     first_aid_kit = models.BooleanField(verbose_name="Botiquín de primeros auxilios")
-    air_conditioning = models.BooleanField(verbose_name="Aire acondicionado")
-    security_camera = models.BooleanField(verbose_name="Cámara de seguridad")
     whiteboard = models.BooleanField(verbose_name="Pizarra")
     projector_screen = models.BooleanField(verbose_name="Cortina de proyector")
     responsible_user_id = models.ForeignKey(
@@ -63,6 +61,67 @@ class Projector(models.Model):
     def __str__(self):
         return self.brand + " " + self.model
 
+class Security_camera (models.Model):
+    brand = models.CharField(max_length=50, verbose_name="Marca")
+    model = models.CharField(max_length=50, verbose_name="Modelo")
+    resolution = models.CharField(max_length=50, verbose_name="Resolución")
+    sensor = models.CharField(max_length=50, verbose_name="Sensor")
+    resolution = models.CharField(max_length=50, verbose_name="Resolución")
+    lens = models.CharField(max_length=50, verbose_name="Lente")
+    dimensions = models.CharField(max_length=50, verbose_name="Dimensiones")
+
+    lab_id = models.ForeignKey(
+        Laboratory,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name="Laboratorio",
+    )
+
+    def __str__(self):
+        return self.brand + " " + self.model
+
+class Regulator_voltage(models.Model):
+    brand = models.CharField(max_length=50, verbose_name="Marca")
+    model = models.CharField(max_length=50, verbose_name="Modelo")
+    capacity = models.IntegerField(verbose_name="Capacidad")
+    dimensions = models.CharField(max_length=50, verbose_name="Dimensiones")
+    weight = models.CharField(max_length=50, verbose_name="Peso")
+    device_type = models.CharField(max_length=50, verbose_name="Tipo")
+    input_voltage = models.IntegerField(verbose_name="Voltaje de entrada")
+    output_voltage = models.IntegerField(verbose_name="Voltaje de salida")
+    output_current = models.IntegerField(verbose_name="Corriente de salida")
+    number_plugs = models.IntegerField(verbose_name="Número de enchufes")
+    lab_id = models.ForeignKey(
+        Laboratory,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name="Laboratorio",
+    )
+
+    def __str__(self):
+        return self.brand + " " + self.model
+
+
+class Air_Conditioner(models.Model):
+    brand = models.CharField(max_length=50, verbose_name="Marca")
+    model = models.CharField(max_length=50, verbose_name="Modelo")
+    voltage = models.IntegerField(verbose_name="Voltaje")
+    capacity = models.IntegerField(verbose_name="Capacidad")
+    device_type  = models.CharField(max_length=50, verbose_name="Tipo")
+    potency = models.IntegerField(verbose_name="Potencia")
+    consumption = models.IntegerField(verbose_name="Consumo")
+    lab_id = models.ForeignKey(
+        Laboratory,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name="Laboratorio",
+    )
+
+    def __str__(self):
+        return self.brand + " " + self.model
 
 # recommendations
 class Recommendation(models.Model):
