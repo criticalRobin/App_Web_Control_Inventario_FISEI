@@ -1,17 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from apps.main.models import Cpu
-from apps.main.forms import CreateCpuForm
+from apps.main.models import Security_camera
+from apps.main.forms import CreateSecurityCameraForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
-class CpuCreateView(CreateView):
-    model = Cpu
-    form_class = CreateCpuForm
-    template_name = "cpus/create.html"
+class SecurityCameraCreateView(CreateView):
+    model = Security_camera
+    form_class = CreateSecurityCameraForm
+    template_name = "camera/create.html"
     success_url = reverse_lazy("main:labs_list")
 
     

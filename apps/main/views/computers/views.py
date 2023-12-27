@@ -14,7 +14,7 @@ class ComputerCreateView(CreateView):
     template_name = "computers/create.html"
     success_url = reverse_lazy("main:labs_list")
 
-    @method_decorator(login_required)
+    
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

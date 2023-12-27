@@ -182,7 +182,7 @@ class CreateSecurityCameraForm(forms.ModelForm):
         fields = "__all__"
 
 
-class CreateRegulatorVoltage(forms.ModelForm):
+class CreateRegulatorVoltageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
@@ -197,7 +197,7 @@ class CreateRegulatorVoltage(forms.ModelForm):
         fields = "__all__"
 
 
-class CreateAirConditioner(forms.ModelForm):
+class CreateAirConditionerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
