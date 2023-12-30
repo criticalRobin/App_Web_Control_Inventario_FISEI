@@ -3,206 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Registro</title>
 </head>
 <body>
-
 <style>
-    html {
-      height: 100%;
-  }
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background: url('https://live.staticflickr.com/65535/53431779059_4b6e36179f_b.jpg') no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .login-box {
+        width: 400px;
+        padding: 40px;
+        background: rgba(0,0,0,.5);
+        box-sizing: border-box;
+        box-shadow: 0 15px 25px rgba(0,0,0,.6);
+        border-radius: 10px;
+        background: #333;
+        text-align: center;
+    }
+    h2 {
+        color: #fff;
+        margin-bottom: 20px;
+    }
+    .user-box {
+        margin-bottom: 30px;
+        position: relative;
+    }
+    .user-box input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 10px;
+        border: none;
+        border-bottom: 1px solid #fff; /* Cambia el color del borde inferior */
+        outline: none;
+        background: transparent;
+    }
+    .user-box label {
+        position: absolute;
+        top: -20px; /* Ajusta la posición del label arriba del input */
+        left: 0;
+        padding: 10px 0;
+        font-size: 12px; /* Cambia el tamaño de la fuente */
+        color: #03e9f4; /* Cambia el color del label a celeste */
+        pointer-events: none;
+        transition: .5s;
+        background: transparent;
+    }
 
-  body {
-      margin:0;
-      padding:0;
-      font-family: sans-serif;
-      background-image: url(
-        'https://live.staticflickr.com/65535/53431779059_4b6e36179f_b.jpg'
-      );
-      background-size: cover;
-      background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* 100% of the viewport height */
-  }
-  .login-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 400px;
-      padding: 40px;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,.5);
-      box-sizing: border-box;
-      box-shadow: 0 15px 25px rgba(0,0,0,.6);
-      border-radius: 10px;
-      background: #333;
-  }
-  
-  .login-box h2 {
-      margin: 0 0 30px;
-      padding: 0;
-      color: #fff;
-      text-align: center;
-  }
-  
-  .login-box .user-box {
-      position: relative;
-  }
-  
-  .login-box .user-box input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-  }
+    .button, button {
+        display: inline-block;
+        padding: 10px 20px;
+        color: #03e9f4;
+        font-size: 16px;
+        text-decoration: none;
+        text-transform: uppercase;
+        overflow: hidden;
+        transition: 0.5s;
+        letter-spacing: 4px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+    }
 
-  .login-box .user-box label {
-      position: absolute;
-      top:0;
-      left: 0;
-      padding: 10px 0;
-      font-size: 16px;
-      color: #fff;
-      pointer-events: none;
-      transition: .5s;
-      color: #fff; 
-      font-size: 18px; 
-      background: transparent;
-  }
-  
-  .login-box .user-box input:focus ~ label,
-  .login-box .user-box input:valid ~ label {
-      top: -20px;
-      left: 0;
-      color: #03e9f4;
-      font-size: 12px;
-  }
-  
-  .login-box form button {
-      position: relative;
-      display: inline-block;
-      padding: 10px 20px;
-      color: #03e9f4;
-      font-size: 16px;
-      text-decoration: none;
-      text-transform: uppercase;
-      overflow: hidden;
-      transition: .5s;
-      margin-top: 40px;
-      letter-spacing: 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-  }
-  
-  .login-box button:hover {
-      background: #03e9f4;
-      color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 0 5px #03e9f4,
-                  0 0 25px #03e9f4,
-                  0 0 50px #03e9f4,
-                  0 0 100px #03e9f4;
-  }
-  
-  .login-box button span {
-      position: absolute;
-      display: block;
-  }
-  
-  .login-box button span:nth-child(1) {
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #03e9f4);
-      animation: btn-anim1 1s linear infinite;
-  }
-  
-  @keyframes btn-anim1 {
-      0% {
-        left: -100%;
+      .login-box .user-box label {
+            position: absolute;
+            top: 2220;
+            color: #03e9f4;
+            left: 0;
+            padding: 10px 0;
+            font-size: 12px;
+            pointer-events: none;
       }
-      50%,100% {
-        left: 100%;
+      
+      label{
+        color:color: 
       }
-  }
-  
-  .login-box button span:nth-child(2) {
-      top: -100%;
-      right: 0;
-      width: 2px;
-      height: 100%;
-      background: linear-gradient(180deg, transparent, #03e9f4);
-      animation: btn-anim2 1s linear infinite;
-      animation-delay: .25s;
-  }
-  
-  @keyframes btn-anim2 {
-      0% {
-        top: -100%;
+      
+      .login-box form a, button {
+          position: relative;
+          display: inline-block;
+          padding: 10px 20px;
+          color: #03e9f4;
+          font-size: 16px;
+          text-decoration: none;
+          text-transform: uppercase;
+          overflow: hidden;
+          transition: .5s;
+          margin-top: 40px;
+          letter-spacing: 4px;
+          background: none;
+          border: none;
+          cursor: pointer;
       }
-      50%,100% {
-        top: 100%;
+      
+      .login-box a:hover, button:hover {
+          background: #03e9f4;
+          color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 0 5px #03e9f4,
+                      0 0 25px #03e9f4,
+                      0 0 50px #03e9f4,
+                      0 0 100px #03e9f4;
       }
-  }
-  
-  .login-box button span:nth-child(3) {
-      bottom: 0;
-      right: -100%;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(270deg, transparent, #03e9f4);
-      animation: btn-anim3 1s linear infinite;
-      animation-delay: .5s;
-  }
-  
-  @keyframes btn-anim3 {
-      0% {
-        right: -100%;
+      
+      .login-box button a, span {
+          position: absolute;
+          display: block;
       }
-      50%,100% {
-        right: 100%;
+      
+      .login-box button a, span:nth-child(1) {
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #03e9f4);
+          animation: btn-anim1 1s linear infinite;
       }
-  }
-  
-  .login-box button span:nth-child(4) {
-      bottom: -100%;
-      left: 0;
-      width: 2px;
-      height: 100%;
-      background: linear-gradient(360deg, transparent, #03e9f4);
-      animation: btn-anim4 1s linear infinite;
-      animation-delay: .75s;
-  }
-  
-  @keyframes btn-anim4 {
-      0% {
-        bottom: -100%;
+      
+      @keyframes btn-anim1 {
+          0% {
+            left: -100%;
+          }
+          50%,100% {
+            left: 100%;
+          }
       }
-      50%,100% {
-        bottom: 100%;
+      
+      .login-box button a, span:nth-child(2) {
+          top: -100%;
+          right: 0;
+          width: 2px;
+          height: 100%;
+          background: linear-gradient(180deg, transparent, #03e9f4);
+          animation: btn-anim2 1s linear infinite;
+          animation-delay: .25s;
       }
-  }
-        
-</style>       
+      
+      @keyframes btn-anim2 {
+          0% {
+            top: -100%;
+          }
+          50%,100% {
+            top: 100%;
+          }
+      }
+      
+      .login-box button a, span:nth-child(3) {
+          bottom: 0;
+          right: -100%;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(270deg, transparent, #03e9f4);
+          animation: btn-anim3 1s linear infinite;
+          animation-delay: .5s;
+      }
+      
+      @keyframes btn-anim3 {
+          0% {
+            right: -100%;
+          }
+          50%,100% {
+            right: 100%;
+          }
+      }
+      
+      .login-box button a, span:nth-child(4) {
+          bottom: -100%;
+          left: 0;
+          width: 2px;
+          height: 100%;
+          background: linear-gradient(360deg, transparent, #03e9f4);
+          animation: btn-anim4 1s linear infinite;
+          animation-delay: .75s;
+      }
+      
+      @keyframes btn-anim4 {
+          0% {
+            bottom: -100%;
+          }
+          50%,100% {
+            bottom: 100%;
+          }
+      }
+            
+      .login-box a.button {
+        display: inline-block; /* Importante para la estructura del botón */
+        padding: 10px 20px; /* O el padding que tengas para tus botones */
+        color: #03e9f4;
+        font-size: 16px;
+        text-decoration: none;
+        text-transform: uppercase;
+        overflow: hidden;
+        transition: .5s;
+        margin-top: 40px;
+        letter-spacing: 4px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        position: relative; /* Para la posición de los elementos span */
+    }
 
-<div class="register-box">
+
+
+</style>
+
+<div class="login-box">
     <h2>Registro</h2>
-    <form method="post">
+    <form method="post" novalidate>
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Crear cuenta</button>
+      <div class="user-box">
+        <input type="text" name="username" required id="id_username">
+        <label for="id_username">Usuario</label>
+      </div>
+      <div class="user-box">
+        
+        <input type="email" name="email" required id="id_email">
+        <label for="id_email">Correo Electrónico</label>
+      </div>
+      <div class="user-box">
+      
+        <input type="password" name="password1" required id="id_password1">
+        <label for="id_password1">Contraseña</label>
+      </div>
+      <div class="user-box">
+       
+        <input type="password" name="password2" required id="id_password2">
+        <label for="id_password2">Confirmación de Contraseña</label>
+      </div>
+      <button type="submit">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Crear cuenta
+      </button>
     </form>
-    <a href="{% url 'login' %}">¿Ya tienes una cuenta? Inicia sesión</a>
-  </div>
+    <a class="button" href="{% url 'login' %}">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Iniciar sesión
+    </a>
+</div>
 
 </body>
 </html>
