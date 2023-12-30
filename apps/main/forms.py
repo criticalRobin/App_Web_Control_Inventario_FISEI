@@ -10,6 +10,9 @@ from .models import (
     Processor,
     Disk,
     Ram,
+    Security_camera,
+    Air_Conditioner,
+    Regulator_voltage,
 )
 
 
@@ -161,4 +164,49 @@ class CreateProcessorForm(forms.ModelForm):
 
     class Meta:
         model = Processor
+        fields = "__all__"
+
+
+class CreateSecurityCameraForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs["autocomplete"] = "off"
+            form.field.widget.attrs["placeholder"] = (
+                form.label[0].capitalize() + form.label[1:].lower()
+            )
+        self.fields["brand"].widget.attrs["autofocus"] = True
+
+    class Meta:
+        model = Security_camera
+        fields = "__all__"
+
+
+class CreateRegulatorVoltageForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs["autocomplete"] = "off"
+            form.field.widget.attrs["placeholder"] = (
+                form.label[0].capitalize() + form.label[1:].lower()
+            )
+        self.fields["brand"].widget.attrs["autofocus"] = True
+
+    class Meta:
+        model = Regulator_voltage
+        fields = "__all__"
+
+
+class CreateAirConditionerForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs["autocomplete"] = "off"
+            form.field.widget.attrs["placeholder"] = (
+                form.label[0].capitalize() + form.label[1:].lower()
+            )
+        self.fields["brand"].widget.attrs["autofocus"] = True
+
+    class Meta:
+        model = Air_Conditioner
         fields = "__all__"

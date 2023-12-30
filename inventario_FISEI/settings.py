@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = ""
+
 
 # Application definition
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tailwind",
     "theme",
+    "widget_tweaks",
     "django_browser_reload",
     "apps.main",
     "apps.users",
