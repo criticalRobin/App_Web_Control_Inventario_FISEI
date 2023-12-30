@@ -20,6 +20,11 @@
         'https://live.staticflickr.com/65535/53431779059_4b6e36179f_b.jpg'
       );
       background-size: cover;
+      background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 100% of the viewport height */
   }
   .login-box {
       position: absolute;
@@ -209,6 +214,7 @@
             <span></span>
             Acceder
           </button>
+          <a href="{% url 'users:register' %}">¿No tienes una cuenta? Regístrate aquí</a>
         </form>
       </div>
 
