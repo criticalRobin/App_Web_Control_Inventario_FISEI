@@ -7,13 +7,16 @@
     <title>FISEI</title>
     {% tailwind_css %}
   </head>
-  <body>
-    <form method="post">
+  <body class="bg-gray-200">
+    <form method="post" class="max-w-xl mx-auto p-4 bg-white rounded shadow">
       {% csrf_token %}
       {% for field in form %}
-        <p>{{ field.label_tag }} {{ field }}</p>
+        <div class="flex flex-col space-y-1">
+          <label class="text-sm text-gray-600">{{ field.label }}</label>
+          <input class="border-2 border-gray-200 p-2 rounded" type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}">
+        </div>
       {% endfor %}
-      <button type="submit">Enviar</button>
+      <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
     </form>
   </body>
 </html>
