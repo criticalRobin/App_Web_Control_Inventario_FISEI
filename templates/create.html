@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FISEI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     {% tailwind_css %}
   </head>
   <body class="bg-gray-200">
@@ -13,7 +15,7 @@
       {% for field in form %}
         <div class="flex flex-col space-y-1">
           <label class="text-sm text-gray-600">{{ field.label }}</label>
-          <input class="border-2 border-gray-200 p-2 rounded" type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}">
+          <input class="{{ field.field.widget.attrs.class|default:'' }} border-2 border-gray-200 p-2 rounded" type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}">
         </div>
       {% endfor %}
       <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
