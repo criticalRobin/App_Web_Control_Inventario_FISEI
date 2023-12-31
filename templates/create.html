@@ -5,36 +5,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FISEI</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     {% tailwind_css %}
 </head>
 <body class="bg-gray-100">
   <h1 class="text-3xl py-3 px-4 mb-4 font-semibold text-blue-700 bg-blue-100 rounded flex items-center">
     <i class="fas fa-laptop-code mr-2"></i> Registro {{ title }}
   </h1>
-    <form method="post" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow">
+    <form method="post" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow animate__animated animate__fadeIn">
       {% csrf_token %}
       <div class="flex flex-wrap -mx-3">
         {% for field in form %}
-        
-        <div class="w-full md:w-1/2 px-3 mb-4">
-          <label class="block text-gray-700 text-sm font-semibold mb-2">{{ field.label }}</label>
-          <div class="flex items-center border-2 border-gray-300 rounded">
-            {% if field.field.widget.input_type != 'number' %}
-              <input class="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" placeholder="{{ field.field.widget.attrs.placeholder|default:'' }}">
+          {% if field.field.widget.input_type != 'checkbox' %}
+            <div class="w-full md:w-1/2 px-3 mb-4">
+              <label class="block text-gray-700 text-sm font-semibold mb-2">{{ field.label }}</label>
+              <div class="flex items-center border-2 border-gray-300 rounded">
+                <!-- Aquí va tu código para renderizar los campos que no son de tipo 'checkbox' -->
+                
+                {% if field.field.widget.input_type == 'text' %}
+                <input class="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" placeholder="{{ field.field.widget.attrs.placeholder|default:'' }}">
 
-            {% elif field.field.widget.input_type == 'number' %}
-              <input class="w-full py-2 px-3 text-blue-500 leading-tight focus:outline-none focus:border-green-500" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" placeholder="{{ field.field.widget.attrs.placeholder|default:'' }}">
-              
-            {% elif field.field.widget.input_type == 'select' %}
-            {{ field }}
-            {% endif %}
+                {% elif field.field.widget.input_type == 'number' %}
+                <input class="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" placeholder="{{ field.field.widget.attrs.placeholder|default:'' }}">
+                
+                {% elif field.field.widget.input_type == 'select' %}
+                <select class="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500" name="{{ field.name }}" id="{{ field.id_for_label }}">
+                  {% for choice in field.field.choices %}
+                    <option value="{{ choice.0 }}" {% if field.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                  {% endfor %}
+                </select>
+                
+                {% endif %}
+
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+
+        {% for field in form %}
+        {% if field.field.widget.input_type == 'checkbox' %}
+          <div class="w-full md:w-1/2 px-3 mb-4">
+                 <label class="inline-flex items-center">
+                  <input type="checkbox" class="form-checkbox text-blue-500" name="{{ field.name }}" id="{{ field.id_for_label }}" {% if field.value %}checked{% endif %}>
+                  <span class="ml-2">{{ field.label }}</span>
+                </label>        
+  
+  
+  
           </div>
-        </div>
+        {% endif %}
       {% endfor %}
       </div>
-      <button type="submit" class="w-full py-3 px-4 bg-blue-500 text-black font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-4">
+
+      <button type="submit" class="w-full py-3 px-4 bg-blue-500 text-black font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-4 animate__animated animate__pulse">
         <i class="fas fa-paper-plane mr-2"></i>Enviar
       </button>
     </form>
