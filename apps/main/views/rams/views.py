@@ -14,6 +14,10 @@ class RamCreateView(CreateView):
     template_name = "rams/create.html"
     success_url = reverse_lazy("main:labs_list")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Tarjeta RAM'
+        return context
     
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)

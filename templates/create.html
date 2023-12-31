@@ -1,24 +1,42 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FISEI</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     {% tailwind_css %}
-  </head>
-  <body class="bg-gray-200">
-    <form method="post" class="max-w-xl mx-auto p-4 bg-white rounded shadow">
+</head>
+<body class="bg-gray-100">
+  <h1 class="text-3xl py-3 px-4 mb-4 font-semibold text-blue-700 bg-blue-100 rounded flex items-center">
+    <i class="fas fa-laptop-code mr-2"></i> Registro {{ title }}
+  </h1>
+    <form method="post" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow">
       {% csrf_token %}
-      {% for field in form %}
-        <div class="flex flex-col space-y-1">
-          <label class="text-sm text-gray-600">{{ field.label }}</label>
-          <input class="{{ field.field.widget.attrs.class|default:'' }} border-2 border-gray-200 p-2 rounded" type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}">
+      <div class="flex flex-wrap -mx-3">
+        {% for field in form %}
+        
+        <div class="w-full md:w-1/2 px-3 mb-4">
+          <label class="block text-gray-700 text-sm font-semibold mb-2">{{ field.label }}</label>
+          <div class="flex items-center border-2 border-gray-300 rounded">
+            {% if field.field.widget.input_type != 'number' %}
+              <input class="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" placeholder="{{ field.field.widget.attrs.placeholder|default:'' }}">
+
+            {% elif field.field.widget.input_type == 'number' %}
+              <input class="w-full py-2 px-3 text-blue-500 leading-tight focus:outline-none focus:border-green-500" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" value="{{ field.value|default_if_none:'' }}" placeholder="{{ field.field.widget.attrs.placeholder|default:'' }}">
+              
+            {% elif field.field.widget.input_type == 'select' %}
+            {{ field }}
+            {% endif %}
+          </div>
         </div>
       {% endfor %}
-      <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
+      </div>
+      <button type="submit" class="w-full py-3 px-4 bg-blue-500 text-black font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-4">
+        <i class="fas fa-paper-plane mr-2"></i>Enviar
+      </button>
     </form>
-  </body>
+</body>
 </html>
