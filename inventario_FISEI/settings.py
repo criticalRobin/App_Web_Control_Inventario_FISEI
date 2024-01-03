@@ -34,6 +34,7 @@ LOGIN_URL = '/accounts/login/'
 # Application definition
 
 INSTALLED_APPS = [
+    "admin_argon.apps.AdminArgonConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
     "apps.main",
     "apps.users",
+    "home",
 ]
 
 TAILWIND_APP_NAME = "theme"
@@ -70,7 +72,7 @@ ROOT_URLCONF = "inventario_FISEI.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [os.path.join(BASE_DIR / "home/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
