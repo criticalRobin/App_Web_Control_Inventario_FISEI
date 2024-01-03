@@ -37,6 +37,8 @@ def dashboard_stats_view(request):
 
     # Contar las tareas asignadas al usuario
     tasks_assigned_count = Task.objects.filter(user_id=current_user).count()
+    #contar las recomendaciones hechas por el usuario
+    recommendations_count = Recommendation.objects.filter(user_id=current_user).count()
     # Construye el contexto con la información que hayas reunido:
     context = {
         "lab_count": lab_count,
@@ -52,6 +54,8 @@ def dashboard_stats_view(request):
         
         'computers_assigned_count': computers_assigned_count,
         'tasks_assigned_count': tasks_assigned_count,
+        'recommendations_count': recommendations_count,
+        
     }
 
     # No renderizamos la plantilla aquí, solo devolvemos el contexto
