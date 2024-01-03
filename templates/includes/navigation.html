@@ -23,24 +23,24 @@
             <li class="nav-item d-flex align-items-center">
               <a href="{% url 'admin:logout' %}" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none me-3">Logout</span>
+                <span class="d-sm-inline d-none me-3">Salir</span>
               </a>
             </li>
             <li class="nav-item d-flex align-items-center">
               <a href="{% url 'admin:password_change' %}" class="nav-link text-white font-weight-bold px-0">
-                <span class="d-sm-inline d-none">Change Password</span>
+                <span class="d-sm-inline d-none">Cambiar contraseña</span>
               </a>
             </li>
           {% else %}
             <li class="nav-item d-flex align-items-center">
               <a href="{% url 'logout' %}" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none me-3">Logout</span>
+                <span class="d-sm-inline d-none me-3">Salir</span>
               </a>
             </li>
             <li class="nav-item d-flex align-items-center">
               <a href="{% url 'password_change' %}" class="nav-link text-white font-weight-bold px-0">
-                <span class="d-sm-inline d-none">Change Password</span>
+                <span class="d-sm-inline d-none">Cambiar contraseña</span>
               </a>
             </li>
           {% endif %}
