@@ -2,7 +2,6 @@ from django.db import models
 from apps.users.models import User
 from django.utils import timezone
 
-
 # Create your models here.
 # laboratorios
 class Laboratory(models.Model):
@@ -27,6 +26,10 @@ class Laboratory(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Laboratorio"
+        verbose_name_plural = "Laboratorios"
+
 
 # computers
 class Computer(models.Model):
@@ -35,7 +38,7 @@ class Computer(models.Model):
     lab_id = models.ForeignKey(
         Laboratory,
         on_delete=models.CASCADE,
-        related_name="projectors",
+        related_name="computadoras",
         verbose_name="Laboratorio",
     )
     responsible_user_id = models.ForeignKey(
@@ -45,6 +48,10 @@ class Computer(models.Model):
         blank=True,
         verbose_name="Usuario responsable",
     )
+
+    class Meta:
+        verbose_name = "Computadora"
+        verbose_name_plural = "Computadoras"
 
 
 class Projector(models.Model):
@@ -61,12 +68,16 @@ class Projector(models.Model):
     def __str__(self):
         return self.brand + " " + self.model
 
-class Security_camera (models.Model):
+    class Meta:
+        verbose_name = "Proyector"
+        verbose_name_plural = "Proyectores"
+
+
+class Security_camera(models.Model):
     brand = models.CharField(max_length=50, verbose_name="Marca")
     model = models.CharField(max_length=50, verbose_name="Modelo")
     resolution = models.CharField(max_length=50, verbose_name="Resolución")
     sensor = models.CharField(max_length=50, verbose_name="Sensor")
-    resolution = models.CharField(max_length=50, verbose_name="Resolución")
     lens = models.CharField(max_length=50, verbose_name="Lente")
     dimensions = models.CharField(max_length=50, verbose_name="Dimensiones")
 
@@ -80,6 +91,11 @@ class Security_camera (models.Model):
 
     def __str__(self):
         return self.brand + " " + self.model
+
+    class Meta:
+        verbose_name = "Cámara de seguridad"
+        verbose_name_plural = "Cámaras de seguridad"
+
 
 class Regulator_voltage(models.Model):
     brand = models.CharField(max_length=50, verbose_name="Marca")
@@ -103,13 +119,17 @@ class Regulator_voltage(models.Model):
     def __str__(self):
         return self.brand + " " + self.model
 
+    class Meta:
+        verbose_name = "Regulador de voltaje"
+        verbose_name_plural = "Reguladores de voltaje"
+
 
 class Air_Conditioner(models.Model):
     brand = models.CharField(max_length=50, verbose_name="Marca")
     model = models.CharField(max_length=50, verbose_name="Modelo")
     voltage = models.IntegerField(verbose_name="Voltaje")
     capacity = models.IntegerField(verbose_name="Capacidad")
-    device_type  = models.CharField(max_length=50, verbose_name="Tipo")
+    device_type = models.CharField(max_length=50, verbose_name="Tipo")
     potency = models.IntegerField(verbose_name="Potencia")
     consumption = models.IntegerField(verbose_name="Consumo")
     lab_id = models.ForeignKey(
@@ -122,6 +142,11 @@ class Air_Conditioner(models.Model):
 
     def __str__(self):
         return self.brand + " " + self.model
+
+    class Meta:
+        verbose_name = "Aire acondicionado"
+        verbose_name_plural = "Aires acondicionados"
+
 
 # recommendations
 class Recommendation(models.Model):
@@ -140,6 +165,10 @@ class Recommendation(models.Model):
 
     def __str__(self):
         return self.description
+
+    class Meta:
+        verbose_name = "Recomendación"
+        verbose_name_plural = "Recomendaciones"
 
 
 class Task(models.Model):
@@ -163,6 +192,10 @@ class Task(models.Model):
 
     def __str__(self):
         return self.description
+
+    class Meta:
+        verbose_name = "Tarea"
+        verbose_name_plural = "Tareas"
 
 
 # monitors
@@ -190,6 +223,10 @@ class Monitor(models.Model):
     def __str__(self):
         return str(self.id) + " " + self.brand
 
+    class Meta:
+        verbose_name = "Monitor"
+        verbose_name_plural = "Monitores"
+
 
 class Cpu(models.Model):
     brand = models.CharField(
@@ -206,6 +243,10 @@ class Cpu(models.Model):
 
     def __str__(self):
         return self.brand + " " + self.model
+
+    class Meta:
+        verbose_name = "CPU"
+        verbose_name_plural = "CPUs"
 
 
 class Ram(models.Model):
@@ -231,6 +272,10 @@ class Ram(models.Model):
 
     def __str__(self):
         return self.brand + " " + str(self.capacity) + "GB"
+
+    class Meta:
+        verbose_name = "RAM"
+        verbose_name_plural = "RAMs"
 
 
 class Disk(models.Model):
@@ -258,6 +303,10 @@ class Disk(models.Model):
     def __str__(self):
         return self.brand + " " + str(self.capacity) + "GB"
 
+    class Meta:
+        verbose_name = "Disco"
+        verbose_name_plural = "Discos"
+
 
 class Processor(models.Model):
     brand = models.CharField(
@@ -284,3 +333,7 @@ class Processor(models.Model):
 
     def __str__(self):
         return self.brand + " " + self.model
+
+    class Meta:
+        verbose_name = "Procesador"
+        verbose_name_plural = "Procesadores"
