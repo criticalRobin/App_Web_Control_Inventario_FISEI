@@ -40,6 +40,13 @@ def dashboard_stats_view(request):
     #contar las recomendaciones hechas por el usuario
     recommendations_count = Recommendation.objects.filter(user_id=current_user).count()
     # Construye el contexto con la información que hayas reunido:
+    
+    #--------------------------
+    computer_list = Computer.objects.filter(responsible_user_id=current_user)
+    task_list = Task.objects.filter(user_id=current_user)
+    recommendation_list = Recommendation.objects.filter(user_id=current_user)
+    
+    
     context = {
         "lab_count": lab_count,
         "computer_count": computer_count,
@@ -55,6 +62,11 @@ def dashboard_stats_view(request):
         'computers_assigned_count': computers_assigned_count,
         'tasks_assigned_count': tasks_assigned_count,
         'recommendations_count': recommendations_count,
+        
+        #------------------
+        'computer_list': computer_list,
+        'task_list': task_list,
+        'recommendation_list': recommendation_list,
         
     }
 
