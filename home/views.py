@@ -9,7 +9,6 @@ from apps.main.models import Laboratory, Computer, Projector, Security_camera, A
 def dashboard_stats_view(request):
     # Aquí puedes agregar la lógica para calcular las estadísticas de tus modelos.
     # Por ejemplo, puedes contar cuántos de cada objeto hay:
-    lab_count = Laboratory.objects.count()
     computer_count = Computer.objects.count()
     projector_count = Projector.objects.count()
     # ...haz esto para cada modelo que necesites...
@@ -39,9 +38,19 @@ def dashboard_stats_view(request):
     tasks_assigned_count = Task.objects.filter(user_id=current_user).count()
     #contar las recomendaciones hechas por el usuario
     recommendations_count = Recommendation.objects.filter(user_id=current_user).count()
+    #contar los laboratorios asignados al usuario
+    laboratory_assigned_count = Laboratory.objects.filter(responsible_user_id=current_user).count()
     # Construye el contexto con la información que hayas reunido:
+    
+    
+    #--------------------------
+    computer_list = Computer.objects.filter(responsible_user_id=current_user)
+    task_list = Task.objects.filter(user_id=current_user)
+    recommendation_list = Recommendation.objects.filter(user_id=current_user)
+    laboratory_list = Laboratory.objects.filter(responsible_user_id=current_user)
+    
     context = {
-        "lab_count": lab_count,
+        "lab_count": laboratory_assigned_count,
         "computer_count": computer_count,
         "projector_count": projector_count,
         # ...continúa agregando el resto de las cuentas que calculaste...
@@ -56,6 +65,11 @@ def dashboard_stats_view(request):
         'tasks_assigned_count': tasks_assigned_count,
         'recommendations_count': recommendations_count,
         
+        #------------------
+        'computer_list': computer_list,
+        'task_list': task_list,
+        'recommendation_list': recommendation_list,
+        'laboratory_list': laboratory_list,
     }
 
     # No renderizamos la plantilla aquí, solo devolvemos el contexto
