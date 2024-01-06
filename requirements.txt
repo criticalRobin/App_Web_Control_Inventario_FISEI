@@ -8,7 +8,7 @@ click==8.1.7
 contourpy==1.2.0
 cookiecutter==2.5.0
 cycler==0.12.1
-Django==5.0
+Django==4.2.7
 django-admin-argon-dashboard==1.0.16
 django-browser-reload==1.12.1
 django-tailwind==3.6.0

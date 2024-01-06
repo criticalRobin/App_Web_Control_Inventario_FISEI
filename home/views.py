@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from apps.users.models import User
-from apps.main.models import Laboratory, Computer, Projector, Security_camera, Air_Conditioner, Regulator_voltage, Monitor, Cpu, Ram, Disk, Processor, Recommendation, Task
+from apps.main.models import Laboratory, Computer, Recommendation, Task, LabItem, ComputerItem
 
 
 # Create your views here.
@@ -10,7 +10,7 @@ def dashboard_stats_view(request):
     # Aquí puedes agregar la lógica para calcular las estadísticas de tus modelos.
     # Por ejemplo, puedes contar cuántos de cada objeto hay:
     computer_count = Computer.objects.count()
-    projector_count = Projector.objects.count()
+    
     # ...haz esto para cada modelo que necesites...
 
     # Si necesitas estadísticas mensuales como en el ejemplo, necesitarás un modelo con una fecha
@@ -52,7 +52,7 @@ def dashboard_stats_view(request):
     context = {
         "lab_count": laboratory_assigned_count,
         "computer_count": computer_count,
-        "projector_count": projector_count,
+      
         # ...continúa agregando el resto de las cuentas que calculaste...
         "users_count": users_count,
         "tasks_count": tasks_count,

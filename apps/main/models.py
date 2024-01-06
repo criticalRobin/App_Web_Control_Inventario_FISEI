@@ -46,7 +46,7 @@ class LabItem(models.Model):
     )
     
     def __str__(self):
-        return self.code + " " + type
+        return self.code + " " + self.type
     
     class Meta:
         verbose_name = "Bien de laboratorio"
@@ -91,16 +91,16 @@ class ComputerItem(models.Model):
     id_computer = models.ForeignKey(Computer, on_delete=models.PROTECT, verbose_name="Computadora")
     
     def __str__(self):
-        return self.code + " " + type
+        return self.code + " " + self.type
 
 class Recommendation(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre")
     description = models.CharField(max_length=50, verbose_name="Descripción")
     user_id = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="Usuario" , default = 0
+        User, on_delete=models.CASCADE, verbose_name="Usuario" , default = 3
     )
     date = models.DateField(default=timezone.now, verbose_name="Fecha")
-    id_item_lab = models.ForeignKey(LabItem, on_delete=models.PROTECT, verbose_name="Bien de laboratorio")
+    
     
     def __str__(self):
         return self.description
