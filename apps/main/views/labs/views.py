@@ -6,10 +6,18 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from home.views import dashboard_stats_view
 
 
 class LaboratoryListView(ListView):
-    pass
+    model = Laboratory
+    template_name = "labs/list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dashboard_context = dashboard_stats_view(self.request)
+        context.update(dashboard_context)
+        return context
 
 
 class LaboratoryCreateView(CreateView):
@@ -20,9 +28,9 @@ class LaboratoryCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Laboratorio'
+        context["title"] = "Laboratorio"
         return context
-    
+
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

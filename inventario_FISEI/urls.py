@@ -25,7 +25,7 @@ urlpatterns = [
     path("", RedirectView.as_view(url="/accounts/login/")),
     path("home/", include("home.urls")),
     path("", include("admin_argon.urls")),
-    path("admin/", admin.site.urls),
+    path("admin/", home_admin_site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path("users/", include("apps.users.urls")),
     path("main/", include("apps.main.urls")),
