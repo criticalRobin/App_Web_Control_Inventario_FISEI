@@ -5,9 +5,9 @@
         <div class="row">
             {% for lab in laboratory_list %}
                 <div class="col-xl-3 col-sm-6 mb-4 mt-3">
-                    <div class="card h-100">
+                    <div class="card h-100 bg-white" style="border: 2px solid black;">
                         <div class="card-body p-3">
-                            <a href={% url 'main:labs_list' %}>
+                            <a href={% url 'main:items_list' lab.pk %}>
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
