@@ -2,6 +2,11 @@ from django.shortcuts import render
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from apps.users.models import User
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.utils import timezone
+from apps.main.models import Recommendation
+from apps.main.forms import StudentRecommendationForm
 from apps.main.models import Laboratory, Computer, Recommendation, Task, LabItem, ComputerItem
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView,PasswordChangeView
 from .forms import RegistrationForm, LoginForm, UserPasswordResetForm, UserSetPasswordForm, UserPasswordChangeForm
@@ -96,6 +101,21 @@ def rtl(request):
 
 def vr(request):
   return render(request, 'pages/virtual-reality.html')
+
+def home_view(request):
+    if request.method == 'POST':
+        form = StudentRecommendationForm(request.POST)
+        if form.is_valid():
+            recommendation = form.save(commit=False)
+            # Establecer el usuario por defecto (ID 3)
+            recommendation.user_id_id = 3
+            recommendation.date = timezone.now()
+            recommendation.save()
+            messages.success(request, 'Se envió la recomendación con éxito.')
+
+    else:
+        form = StudentRecommendationForm()
+    return render(request, 'home_page.html', {'form': form})
 
 def register(request):
   if request.method == 'POST':
