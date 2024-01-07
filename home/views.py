@@ -2,15 +2,15 @@ from django.shortcuts import render
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from apps.users.models import User
-from apps.main.models import Laboratory, Computer, Projector, Security_camera, Air_Conditioner, Regulator_voltage, Monitor, Cpu, Ram, Disk, Processor, Recommendation, Task
-
-
+from apps.main.models import Laboratory, Computer, Recommendation, Task, LabItem, ComputerItem
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView,PasswordChangeView
+from .forms import RegistrationForm, LoginForm, UserPasswordResetForm, UserSetPasswordForm, UserPasswordChangeForm
 # Create your views here.
 def dashboard_stats_view(request):
     # Aquí puedes agregar la lógica para calcular las estadísticas de tus modelos.
     # Por ejemplo, puedes contar cuántos de cada objeto hay:
     computer_count = Computer.objects.count()
-    projector_count = Projector.objects.count()
+    
     # ...haz esto para cada modelo que necesites...
 
     # Si necesitas estadísticas mensuales como en el ejemplo, necesitarás un modelo con una fecha
@@ -52,7 +52,7 @@ def dashboard_stats_view(request):
     context = {
         "lab_count": laboratory_assigned_count,
         "computer_count": computer_count,
-        "projector_count": projector_count,
+      
         # ...continúa agregando el resto de las cuentas que calculaste...
         "users_count": users_count,
         "tasks_count": tasks_count,
@@ -74,3 +74,63 @@ def dashboard_stats_view(request):
 
     # No renderizamos la plantilla aquí, solo devolvemos el contexto
     return context
+
+def argon_dashboard_view(request):
+    context = dashboard_stats_view(request)
+    return render(request, 'pages/dashboard.html', context)
+
+def index(request):
+  return render(request, 'pages/dashboard.html')
+
+def billing(request):
+  return render(request, 'pages/billing.html')
+
+def profile(request):
+  return render(request, 'pages/profile.html')
+
+def tables(request):
+  return render(request, 'pages/tables.html')
+
+def rtl(request):
+  return render(request, 'pages/rtl.html')
+
+def vr(request):
+  return render(request, 'pages/virtual-reality.html')
+
+def register(request):
+  if request.method == 'POST':
+    form = RegistrationForm(request.POST)
+    if form.is_valid():
+      form.save()
+      print("Account created successfully!")
+      return redirect('/accounts/login/')
+    else:
+      print("Registration failed!")
+  else:
+    form = RegistrationForm()
+
+  context = { 'form': form }
+  return render(request, 'accounts/sign-up.html', context)
+
+
+class UserLoginView(LoginView):
+  template_name = 'accounts/sign-in.html'
+  form_class = LoginForm
+
+
+class UserPasswordResetView(PasswordResetView):
+  template_name = 'accounts/password_reset.html'
+  form_class = UserPasswordResetForm
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+  template_name = 'accounts/password_reset_confirm.html'
+  form_class = UserSetPasswordForm
+
+class UserPasswordChangeView(PasswordChangeView):
+  template_name = 'accounts/password_change.html'
+  form_class = UserPasswordChangeForm
+
+def user_logout_view(request):
+  logout(request)
+  return redirect('/accounts/login/')

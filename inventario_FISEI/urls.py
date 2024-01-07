@@ -17,13 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include  # new
 from home.admin import home_admin_site
+
 from django.views.generic import RedirectView
 
 
 urlpatterns = [
-    path("", RedirectView.as_view(url="/admin/login/?next=/admin/")),
-    path("argon/", include("admin_argon.urls")),
-    path("admin/", home_admin_site.urls),
+    path("", RedirectView.as_view(url="/accounts/login/")),
+    path("home/", include("home.urls")),
+    path("", include("admin_argon.urls")),
+    path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path("users/", include("apps.users.urls")),
     path("main/", include("apps.main.urls")),
