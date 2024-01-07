@@ -8,6 +8,10 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
+class TaskListView(ListView):
+    pass
+
+
 class TaskCreateView(CreateView):
     model = Task
     form_class = CreateTaskForm
@@ -36,3 +40,7 @@ class TaskCreateView(CreateView):
         context = self.get_context_data(**kwargs)
         context["form"] = form
         return render(request, self.template_name, context)
+
+
+class TaskUpdateView(UpdateView):
+    pass
