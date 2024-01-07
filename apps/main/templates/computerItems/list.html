@@ -1,0 +1,72 @@
+{% extends 'layouts/base.html' %}
+{% load i18n static %}
+
+{% block title %}
+  Items de computadoras
+{% endblock %}
+
+{% block overlay %}
+  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                <h6>{{ title }}</h6>
+                <a href="{% url 'main:compitem_create' %}" class="btn btn-success">Crear nuevo item</a>
+              </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center justify-content-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">#</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Código</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Tipo</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Comp. Perteneciente</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Acciones</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in computerItems %}
+                    <tr>
+                      <th scope="row">
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-sm">{{ item.id }}</h6>
+                        </div>
+                      </th>
+
+                      <td>
+                        <p class="text-sm font-weight-bold mb-0">{{ item.code }}</p>
+                      </td>
+                      <td>
+                        <span class="text-xs font-weight-bold">{{ item.type }}</span>
+                      </td>
+                      <td>
+                        <span class="text-xs font-weight-bold">{{ item.id_computer }}</span>
+                      </td>
+                      <td class="align-middle">
+                        <a href="{% url 'main:compitem_update' item.id %}" class="btn btn-info">Editar</a>
+                      </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                      <td colspan="4">No hay laboratorios disponibles.</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'includes/footer.html' %}
+  </div>
+
+
+{% endblock content %}
