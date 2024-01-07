@@ -16,7 +16,7 @@
         <div class="card mb-4">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                 <h6>{{ title }}</h6>
-                <a href="{% url 'main:laboratory_create' %}" class="btn btn-success">Crear nuevo laboratorio</a>
+                <a href="{% url 'main:computer_create' %}" class="btn btn-success">Crear nuevo laboratorio</a>
               </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -31,23 +31,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for laboratory in laboratories %}
+                  {% for computer in computers %}
                     <tr>
                       <th scope="row">
                         <div class="my-auto">
-                          <h6 class="mb-0 text-sm">{{ laboratory.id }}</h6>
+                          <h6 class="mb-0 text-sm">{{ computer.id }}</h6>
                         </div>
                       </th>
 
                       <td>
-                        <p class="text-sm font-weight-bold mb-0">{{ laboratory.name }}</p>
+                        <p class="text-sm font-weight-bold mb-0">{{ computer.code }}</p>
                       </td>
                       <td>
-                        <span class="text-xs font-weight-bold">{{ laboratory.description }}</span>
+                        <span class="text-xs font-weight-bold">{{ computer.lab_id.name }}</span>
                       </td>
 
                       <td class="align-middle">
-                        <a href="{% url 'main:laboratory_update' laboratory.id %}" class="btn btn-info">Editar</a>
+                        <a href="{% url 'main:computer_update' computer.id %}" class="btn btn-info">Editar</a>
                       </td>
                     </tr>
                     {% empty %}

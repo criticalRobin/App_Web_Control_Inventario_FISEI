@@ -1,14 +1,24 @@
 from django.db import models
 from apps.users.models import User
 from django.utils import timezone
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class Laboratory(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre", unique=True)
-    description = models.CharField(max_length=50, verbose_name="Descripción")
-    floor_number = models.IntegerField(verbose_name="Número de piso")
-    table_number = models.IntegerField(verbose_name="Número de mesas")
-    chair_number = models.IntegerField(verbose_name="Número de sillas")
+    description = models.CharField(max_length=100, verbose_name="Descripción")
+    floor_number = models.IntegerField(
+    verbose_name="Número de piso", 
+    validators=[MinValueValidator(0), MaxValueValidator(3)]
+    )
+    table_number = models.IntegerField(
+    verbose_name="Número de mesas", 
+    validators=[MinValueValidator(0), MaxValueValidator(50)]
+    )
+    chair_number = models.IntegerField(
+    verbose_name="Número de sillas", 
+    validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
     fire_extinguisher = models.BooleanField(verbose_name="Extintor")
     trash_can = models.BooleanField(verbose_name="Basurero")
     first_aid_kit = models.BooleanField(verbose_name="Botiquín de primeros auxilios")
@@ -20,7 +30,7 @@ class Laboratory(models.Model):
         verbose_name="Usuario responsable",
     )
     def __str__(self):
-        return self.name+" "+self.floor_number
+        return self.name+" Piso:"+self.floor_number.__str__()
     class Meta:
         verbose_name = "Laboratorio"
         verbose_name_plural = "Laboratorios"
