@@ -20,8 +20,7 @@ class Laboratory(models.Model):
         verbose_name="Usuario responsable",
     )
     def __str__(self):
-        return self.name
-
+        return self.name+" "+self.floor_number
     class Meta:
         verbose_name = "Laboratorio"
         verbose_name_plural = "Laboratorios"
