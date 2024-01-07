@@ -8,6 +8,10 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
+class RecommendationListView(ListView):
+    pass
+
+
 class RecommendationCreateView(CreateView):
     model = Recommendation
     form_class = CreateRecommendationForm
@@ -34,3 +38,7 @@ class RecommendationCreateView(CreateView):
         context = self.get_context_data(**kwargs)
         context["form"] = form
         return render(request, self.template_name, context)
+
+
+class RecommendationUpdateView(UpdateView):
+    pass

@@ -8,6 +8,10 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
+class LaboratoryListView(ListView):
+    pass
+
+
 class LaboratoryCreateView(CreateView):
     model = Laboratory
     form_class = CreateLaboratoryForm
@@ -31,3 +35,7 @@ class LaboratoryCreateView(CreateView):
         context = self.get_context_data(**kwargs)
         context["form"] = form
         return render(request, self.template_name, context)
+
+
+class LaboratoryUpdateView(UpdateView):
+    pass

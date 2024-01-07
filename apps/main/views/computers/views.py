@@ -8,17 +8,21 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
+class ComputerListView(ListView):
+    pass
+
+
 class ComputerCreateView(CreateView):
     model = Computer
     form_class = CreateComputerForm
     template_name = "computers/create.html"
     success_url = reverse_lazy("main:labs_list")
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Computadora'
+        context["title"] = "Computadora"
         return context
-    
+
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -31,3 +35,7 @@ class ComputerCreateView(CreateView):
         context = self.get_context_data(**kwargs)
         context["form"] = form
         return render(request, self.template_name, context)
+
+
+class ComputerUpdateView(UpdateView):
+    pass
