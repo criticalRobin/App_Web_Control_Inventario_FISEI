@@ -24,7 +24,9 @@
               <!-- Pie de página del modal -->
               <div class="modal-footer">
                 <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-success text-white" data-bs-dismiss="modal">Actualizar</button>
+                <a href="{% url 'main:task_update' task.id %}">
+                  <button type="button" class="btn btn-success text-white">Actualizar</button>
+                </a>
               </div>
             </div>
           </div>
