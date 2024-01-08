@@ -19,6 +19,16 @@ class RecommendationListView(ListView):
         context.update(dashboard_context)
         return context
 
+class RecommendationAllListView(ListView):
+    model = Recommendation
+    template_name = "recomms/list_all.html"
+    context_object_name = "recommendations"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Lista de recomendaciones"
+        return context
+
 
 class RecommendationCreateView(CreateView):
     model = Recommendation

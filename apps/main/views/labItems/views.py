@@ -11,7 +11,7 @@ from home.views import dashboard_stats_view
 
 class LabItemListView(ListView):
     model = LabItem
-    template_name = "items/list.html"
+    template_name = "items/list_all.html"
     context_object_name = "Items"
 
     def get_context_data(self, **kwargs):
@@ -22,7 +22,7 @@ class LabItemListView(ListView):
 class LabItemCreateView(CreateView):
     model = LabItem
     form_class = CreateLabItemForm
-    template_name = "labs/create.html"
+    template_name = "items/create.html"
     success_url = reverse_lazy("main:labitems_list")
 
     def get_context_data(self, **kwargs):
@@ -45,7 +45,7 @@ class LabItemCreateView(CreateView):
 
 class LabItemUpdateView(UpdateView):
     model = LabItem
-    form_class = UpdateLaboratoryForm
+    form_class = UpdateLabItemForm
     template_name = "items/update.html"
     success_url = reverse_lazy("main:labitems_list")
 
@@ -66,12 +66,12 @@ class LabItemUpdateView(UpdateView):
 
 class LabItemListDasboardView(ListView):
     model = LabItem
-    template_name = "items/list_dashboard.html"
+    template_name = "items/list.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        current_user = self.request.user
-        computers = Computer.objects.filter(responsible_user_id=current_user)
-
+        labid = self.kwargs['pk']
+        computers = Computer.objects.filter(lab_id=labid, responsible_user_id=self.request.user)
+        items = LabItem.objects.filter(id_laboratory=labid, responsible_user_id=self.request.user)
         computer_items_grouped = {
             computer.id: ComputerItem.objects.filter(id_computer=computer)
             for computer in computers
@@ -79,6 +79,8 @@ class LabItemListDasboardView(ListView):
 
         dashboard_context = dashboard_stats_view(self.request)
         context.update(dashboard_context)
+        
+        context["lab_items"] = items
         context["computers"] = computers
         context["computer_items_grouped"] = computer_items_grouped
         print(context["computers"])

@@ -19,6 +19,15 @@ class TaskListView(ListView):
         context.update(dashboard_context)
         return context
 
+class TaskAllListView(ListView):
+    model = Task
+    template_name = "tasks/list_all.html"
+    context_object_name = "tasks"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Lista de tareas"
+        return context
 
 class TaskCreateView(CreateView):
     model = Task
@@ -35,13 +44,9 @@ class TaskCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        recomm_id = kwargs["pk"]
-        recomm = get_object_or_404(Recommendation, pk=recomm_id)
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            form = form.save(commit=False)
-            form.recommendation_id = recomm
             form.save()
             return HttpResponseRedirect(self.success_url)
         self.object = None
