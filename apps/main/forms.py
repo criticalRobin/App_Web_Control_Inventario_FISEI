@@ -79,6 +79,20 @@ class CreateRecommendationForm(forms.ModelForm):
         }
 
 
+class StudentRecommendationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs["autocomplete"] = "off"
+            form.field.widget.attrs["placeholder"] = (
+                form.label[0].capitalize() + form.label[1:].lower()
+            )
+        self.fields["description"].widget.attrs["autofocus"] = True
+
+    class Meta:
+        model = Recommendation
+        fields = ["name", "description"]
+
 class CreateTaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

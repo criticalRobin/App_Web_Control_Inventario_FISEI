@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include  # new
 from home.admin import home_admin_site
+from home.views import home_view
+
 
 from django.views.generic import RedirectView
 
@@ -28,6 +30,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path("users/", include("apps.users.urls")),
+    path("homepage/", home_view, name='home'), 
     path("main/", include("apps.main.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
