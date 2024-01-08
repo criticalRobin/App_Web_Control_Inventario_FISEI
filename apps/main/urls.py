@@ -22,6 +22,18 @@ urlpatterns = [
     path('compitem/list/', ComputerItemListView.as_view(), name='compitems_list'),
     path('compitem/update/<int:pk>/', ComputerItemsUpdateView.as_view(), name='compitem_update'),
     
+    path('labitem/create/', LabItemCreateView.as_view(), name='labitem_create'),
+    path('labitem/list/', LabItemListView.as_view(), name='labitems_list'),
+    path('labitem/update/<int:pk>/', LabItemUpdateView.as_view(), name='labitem_update'),
+    
+    path('recomm/create/', RecommendationCreateView.as_view(), name='recomm_create'),
+    path('recomm/list/', RecommendationListView.as_view(), name='recomms_list'),
+    path('recomm/update/<int:pk>/', RecommendationUpdateView.as_view(), name='recomm_update'),
+    
+    path('task/create/', TaskCreateView.as_view(), name='task_create'),
+    path('task/list/', TaskListView.as_view(), name='tasks_list'),
+    path('task/update/<int:pk>/', TaskUpdateView.as_view(), name='task_update'),
+    
     path("labs/", LaboratoryDashboardListView.as_view(), name="labsd_list"),
     path("labs/<int:pk>/items/", LabItemListView.as_view(), name="labitems_list"),
     path("computers/", ComputerListDasboardView.as_view(), name="computersd_list"),
