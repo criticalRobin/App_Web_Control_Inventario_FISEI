@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from apps.main.forms import CreateComputerItem
+from apps.main.forms import *
 from apps.main.models import LabItem, Laboratory
 from django.views.generic import ListView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
@@ -25,9 +25,9 @@ class LabItemListView(ListView):
 
 class LabItemCreateView(CreateView):
     model = LabItem
-    form_class = CreateComputerItem
+    form_class = CreateLabItemForm
     template_name = "labs/create.html"
-    success_url = reverse_lazy("main:labs_list")
+    success_url = reverse_lazy("main:labitems_list")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -46,3 +46,45 @@ class LabItemCreateView(CreateView):
         context = self.get_context_data(**kwargs)
         context["form"] = form
         return render(request, self.template_name, context)
+
+class LabItemUpdateView(UpdateView):
+    model = LabItem
+    form_class = UpdateLaboratoryForm
+    template_name = "items/update.html"
+    success_url = reverse_lazy("main:labitems_list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Actualizar Ítem de laboratorio'
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.form_class(request.POST, instance=self.object)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(self.success_url)
+        context = self.get_context_data(**kwargs)
+        context["form"] = form
+        return render(request, self.template_name, context)
+
+class LabItemListDasboardView(ListView):
+    model = LabItem
+    template_name = "items/list_dashboard.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        computers = Computer.objects.filter(responsible_user_id=current_user)
+
+        computer_items_grouped = {
+            computer.id: ComputerItem.objects.filter(id_computer=computer)
+            for computer in computers
+        }
+
+        dashboard_context = dashboard_stats_view(self.request)
+        context.update(dashboard_context)
+        context["computers"] = computers
+        context["computer_items_grouped"] = computer_items_grouped
+        print(context["computers"])
+        # print(context["computer_items_grouped"])
+        return context

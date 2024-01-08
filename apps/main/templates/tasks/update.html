@@ -2,7 +2,7 @@
 {% load i18n static %}
 
 {% block title %}
-  Crear tarea
+  Editar Tarea
 {% endblock %}
 
 {% block overlay %}
@@ -25,18 +25,17 @@
                 {% for field in form %}
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">{{ field.label_tag }}</th>
+                  
                   <td>
                     {% if field.errors %}
                     <span class="text-danger">{{ field.errors }}</span>
-                    {% endif %}
-                    {{ field }}
-                    
-                  </td>
+                  {% endif %}
+                    {{ field }}</td>
                 </tr>
                 {% endfor %}
                 <tr>
                   <td colspan="2">
-                    <button type="submit" class="btn btn-success">Crear</button>
+                    <button type="submit" class="btn btn-info">Actualizar</button>
                   </td>
                 </tr>
               </table>
