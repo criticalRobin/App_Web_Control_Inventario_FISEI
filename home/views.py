@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from apps.users.models import User
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils import timezone
@@ -136,6 +137,11 @@ def register(request):
 class UserLoginView(LoginView):
   template_name = 'accounts/sign-in.html'
   form_class = LoginForm
+  def get_success_url(self):
+        user = self.request.user
+        if user.is_superuser:
+            return '/admin/'  # O la URL que quieras para superusuarios
+        return super().get_success_url()
 
 
 class UserPasswordResetView(PasswordResetView):
@@ -153,4 +159,4 @@ class UserPasswordChangeView(PasswordChangeView):
 
 def user_logout_view(request):
   logout(request)
-  return redirect('/accounts/login/')
+  return redirect('/homepage')
