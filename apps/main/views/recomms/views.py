@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from apps.main.models import Recommendation
-from apps.main.forms import CreateRecommendationForm
+from apps.main.forms import CreateRecommendationForm, UpdateRecommendationForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
@@ -19,12 +19,22 @@ class RecommendationListView(ListView):
         context.update(dashboard_context)
         return context
 
+class RecommendationAllListView(ListView):
+    model = Recommendation
+    template_name = "recomms/list_all.html"
+    context_object_name = "recommendations"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Lista de recomendaciones"
+        return context
+
 
 class RecommendationCreateView(CreateView):
     model = Recommendation
     form_class = CreateRecommendationForm
     template_name = "recomms/create.html"
-    success_url = reverse_lazy("main:labs_list")
+    success_url = reverse_lazy("main:recomms_list")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,4 +59,22 @@ class RecommendationCreateView(CreateView):
 
 
 class RecommendationUpdateView(UpdateView):
-    pass
+    model = Recommendation
+    form_class = UpdateRecommendationForm
+    template_name = "recomms/update.html"
+    success_url = reverse_lazy("main:recomms_list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Actualizar Recomendación"
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.form_class(request.POST, instance=self.object)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(self.success_url)
+        context = self.get_context_data(**kwargs)
+        context["form"] = form
+        return render(request, self.template_name, context)
