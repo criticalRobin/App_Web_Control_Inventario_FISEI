@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from apps.main.models import Computer
+from apps.main.models import Computer, ComputerItem
 from apps.main.forms import CreateComputerForm, UpdateComputerForm
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from home.views import dashboard_stats_view
 
 
 class ComputerListView(ListView):
@@ -18,6 +19,26 @@ class ComputerListView(ListView):
         context["title"] = "Lista de Computadoras"
         return context
 
+class ComputerListDasboardView(ListView):
+    model = Computer
+    template_name = "computers/list_dashboard.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        computers = Computer.objects.filter(responsible_user_id=current_user)
+
+        computer_items_grouped = {
+            computer.id: ComputerItem.objects.filter(id_computer=computer)
+            for computer in computers
+        }
+
+        dashboard_context = dashboard_stats_view(self.request)
+        context.update(dashboard_context)
+        context["computers"] = computers
+        context["computer_items_grouped"] = computer_items_grouped
+        print(context["computers"])
+        # print(context["computer_items_grouped"])
+        return context
 
 class ComputerCreateView(CreateView):
     model = Computer

@@ -1,0 +1,55 @@
+{% extends 'pages/dashboard.html' %}
+{% load static %}
+{% block dcontent %}
+  <div class="container-fluid pt-4 mt-6">
+    <div class="row">
+      {% for rec in recommendation_list %}
+        <!-- Modal -->
+        <div class="modal fade" id="modal{{ rec.id }}" tabindex="-1" aria-labelledby="modalLabel{{ rec.id }}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Cabecera del modal -->
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel{{ rec.id }}">{{ rec.name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+              </div>
+              <!-- Cuerpo del modal -->
+              <div class="modal-body">
+                <ul class="text-dark">
+                  <li>Descripción: {{ rec.description }}</li>
+                  <li>Fecha: {{ rec.date }}</li>
+                </ul>
+              </div>
+              <!-- Pie de página del modal -->
+              <div class="modal-footer">
+                <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-6 mb-4 mt-3">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{ rec.id }}" class="text-dark text-decoration-none">
+            <div class="card h-100 bg-white" style="border: 2px solid black;">
+              <div class="card-body p-3">
+                <div class="row">
+                  <div class="col-8">
+                    <div class="numbers">
+                      <p class="text-sm mb-0 text-uppercase font-weight-bold">{{ rec.name }}</p>
+                      <span>{{ rec.date }}</span>
+                    </div>
+                  </div>
+                  <div class="col-4 text-end">
+                    <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                      <i class="ni ni-satisfied text-lg opacity-10" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

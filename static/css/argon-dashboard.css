@@ -10584,7 +10584,7 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-  background-color: #000 !important;
+  background-color: #344767 !important;
 }
 
 .bg-secondary {
@@ -10613,6 +10613,10 @@ fieldset:disabled .btn {
 
 .bg-dark {
   background-color: #344767 !important;
+}
+
+.bg-black {
+  background-color: #000 !important;
 }
 
 .bg-white {
