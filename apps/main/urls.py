@@ -26,4 +26,5 @@ urlpatterns = [
     path("labs/<int:pk>/items/", LabItemListView.as_view(), name="labitems_list"),
     path("computers/", ComputerListDasboardView.as_view(), name="computersd_list"),
     path("recomms/", RecommendationListView.as_view(), name="recomms_list"),
+    path("tasks/", TaskListView.as_view(), name="tasks_list"),
 ]
