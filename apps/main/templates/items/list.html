@@ -20,6 +20,7 @@
                     <li>Marca: {{ item.brand }}</li>
                     <li>Modelo: {{ item.model }}</li>
                     <li>Descripción: {{ item.description }}</li>
+                    <li>Tipo: {{ item.get_type_display }}</li>
                     <li>Laboratorio: {{ item.id_laboratory.name }}</li>
                     <li>Responsable: {{ item.responsible_user_id.first_name }} {{ item.responsible_user_id.last_name }}</li>
                   </ul>

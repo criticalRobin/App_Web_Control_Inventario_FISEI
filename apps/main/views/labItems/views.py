@@ -12,15 +12,11 @@ from home.views import dashboard_stats_view
 class LabItemListView(ListView):
     model = LabItem
     template_name = "items/list.html"
+    context_object_name = "Items"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        lab = self.kwargs["pk"]
-        laboratory = Laboratory.objects.get(id=lab)
-        lab_items = LabItem.objects.filter(id_laboratory=laboratory)
-        context["lab_items"] = lab_items
-        dashboard_context = dashboard_stats_view(self.request)
-        context.update(dashboard_context)
+        context["title"] = "Lista de Items de laboratorio"
         return context
 
 class LabItemCreateView(CreateView):
