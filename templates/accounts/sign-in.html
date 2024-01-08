@@ -1,0 +1,97 @@
+{% extends 'layouts/base-fullscreen.html' %}
+{% load i18n static admin_argon %}
+
+{% block content %}
+
+  {% include 'includes/navigation-fullscreen.html' %}
+
+  <main class="main-content  mt-0">
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+              <div class="card card-plain">
+                <div class="card-header pb-0 text-start">
+                  <h4 class="font-weight-bolder">Iniciar sesión</h4>
+                  <p class="mb-0">Ingresa el usuario y contraseña</p>
+                </div>
+                <div class="card-body">
+                  <form role="form" method="post" action="{{ app_path }}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <input 
+                        type="text" 
+                        class="form-control form-control-lg" 
+                        placeholder="Usuario" 
+                        aria-label="Email"
+                        name="{{ form.username.name }}"
+                        id="{{ form.username.id_for_label }}"
+                      >
+                    </div>
+                    <div class="mb-3">
+                      <input 
+                        type="password" 
+                        class="form-control form-control-lg" 
+                        placeholder="Contraseña" 
+                        aria-label="Password"
+                        name="{{ form.password.name }}"
+                        id="{{ form.password.id_for_label }}"
+                      >
+                    </div>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="rememberMe">
+                      <label class="form-check-label" for="rememberMe">Recuerdáme</label>
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Iniciar sesión</button>
+                    </div>
+                  </form>
+                </div>
+                
+              </div>
+            </div>
+            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+             <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://img.freepik.com/vector-gratis/personal-tienda-verifica-cantidad-productos-que-deben-entregar-clientes-dia_1150-51079.jpg?w=900&t=st=1704294322~exp=1704294922~hmac=a33f5a73f8410953451aaba9b29dddf351fdf055706badb16979062b2ae28b2d');
+          background-size: cover;">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+{% endblock content %}
+
+{% block extrascript %}
+    <script type="application/javascript">
+        {% if form.username.errors %}
+            notification.danger("{{ form.username.errors }}", 'top', 'right');
+        {% endif %}
+        {% if form.password.errors %}
+            notification.danger("{{ form.password.errors }}", 'top', 'right');
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            var msg = "You are authenticated as {{ username }}, but are not authorized to " +
+                "access this page.Would you like to login to a different account ?"
+            notification.warning(msg, 'top', 'right');
+        {% endif %}
+
+        {% if form.errors and not form.non_field_errors %}
+            {% if form.errors.items|length == 1 %}
+                notification.warning("{% trans "Please correct the error below." %}", 'top', 'right');
+            {% else %}
+                notification.warning("{% trans "Please correct the errors below." %}", 'top', 'right');
+            {% endif %}
+        {% endif %}
+
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                notification.warning("{{ error|clean_text }}", 'top', 'right');
+            {% endfor %}
+        {% endif %}
+    </script>
+{% endblock %}

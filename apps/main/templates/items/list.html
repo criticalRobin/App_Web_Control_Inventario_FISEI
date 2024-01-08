@@ -67,13 +67,13 @@
               </div>
               <div class="modal-body">
                 <ul class="text-dark">
-                  {% with items=computer_items_grouped|get_item:pc.id %}
-                    {% for item in items %}
-                      <h4>{{ item.get_type_display }}</h4>
-                      <li>Código: {{ item.code }}</li>
-                      <li>Marca: {{ item.brand }}</li>
-                      <li>Modelo: {{ item.model }}</li>
-                      <li>Descripción: {{ item.description }}</li>
+                  {% with compitems=computer_items_grouped|get_item:pc.id %}
+                    {% for compitem in compitems %}
+                      <h4>{{ compitem.get_type_display }}</h4>
+                      <li>Código: {{ compitem.code }}</li>
+                      <li>Marca: {{ compitem.brand }}</li>
+                      <li>Modelo: {{ compitem.model }}</li>
+                      <li>Descripción: {{ compitem.description }}</li>
                       {% empty %}
                       <li>No hay elementos para mostrar.</li>
                     {% endfor %}
