@@ -1,0 +1,31 @@
+{% extends 'pages/dashboard.html' %}
+{% load static %}
+{% block dcontent %}
+    <div class="container-fluid pt-4 mt-6">
+        <div class="row">
+            {% for lab in laboratory_list %}
+                <div class="col-xl-3 col-sm-6 mb-4 mt-3">
+                    <div class="card h-100 bg-white" style="border: 2px solid black;">
+                        <div class="card-body p-3">
+                            <a href={% url 'main:labitems_list' lab.pk %}>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="numbers">
+                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">{{ lab.name }}</p>
+                                            <span>Piso: {{ lab.floor_number }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-end">
+                                        <div class="icon icon-shape bg-gradient-secondary shadow-primary text-center rounded-circle">
+                                            <i class="fas fa-door-open text-lg opacity-10" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
