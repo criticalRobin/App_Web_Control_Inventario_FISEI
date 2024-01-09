@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from home.views import dashboard_stats_view
+
 
 class ComputerItemListView(ListView):
     model = ComputerItem
@@ -16,6 +18,7 @@ class ComputerItemListView(ListView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Lista de items de computadora"
         return context
+
 
 class ComputerItemsCreateView(CreateView):
     model = ComputerItem
@@ -62,3 +65,20 @@ class ComputerItemsUpdateView(UpdateView):
         context = self.get_context_data(**kwargs)
         context["form"] = form
         return render(request, self.template_name, context)
+
+
+class ComputerItemsByPcList(ListView):
+    model = ComputerItem
+    template_name = "computerItems/list-dash.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comp_id = self.kwargs["pk"]
+        items = ComputerItem.objects.filter(id_computer=comp_id)
+
+        dashboard_context = dashboard_stats_view(self.request)
+        context.update(dashboard_context)
+
+        context["computer_items"] = items
+        print(context["computer_items"])
+        return context
