@@ -16,16 +16,17 @@
         <div class="card mb-4">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                 <h6>{{ title }}</h6>
-                <a href="{% url 'main:task_create' %}" class="btn btn-success">Crear nuevo item</a>
+                <a href="{% url 'main:task_create' %}" class="btn btn-success">Crear nueva Tarea</a>
               </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
               <table class="table align-items-center justify-content-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">#</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">#</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Nombre</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Descripción</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Responsable</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Estado</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Acciones</th>
                     
@@ -45,6 +46,9 @@
                       </td>
                       <td>
                         <span class="text-xs font-weight-bold">{{ task.description }}</span>
+                      </td>
+                      <td>
+                        <span class="text-xs font-weight-bold">{{ task.user_id }}</span>
                       </td>
                       <td>
                         <span class="text-xs font-weight-bold">{{ task.status }}</span>

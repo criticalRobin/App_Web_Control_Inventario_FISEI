@@ -23,11 +23,11 @@
               <table class="table align-items-center justify-content-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" scope="col">#</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Nombre</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Descripción</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">#</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Código</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Laboratorio</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Usu. Responsable</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2" scope="col">Acciones</th>
-                    
                   </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,9 @@
                       <td>
                         <span class="text-xs font-weight-bold">{{ computer.lab_id.name }}</span>
                       </td>
-
+                      <td>
+                        <span class="text-xs font-weight-bold">{{ computer.responsible_user_id }}</span>
+                      </td>
                       <td class="align-middle">
                         <a href="{% url 'main:computer_update' computer.id %}" class="btn btn-info">Editar</a>
                       </td>

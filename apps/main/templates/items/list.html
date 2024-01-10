@@ -57,57 +57,27 @@
         </div>
       {% endfor %}
       {% for pc in computers %}
-        <!-- Modal -->
-        <div class="modal fade" id="modal{{ pc.id }}" tabindex="-1" aria-labelledby="modalLabel{{ pc.id }}" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel{{ pc.id }}">Información {{ pc.code }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-              </div>
-              <div class="modal-body">
-                <ul class="text-dark">
-                  {% with compitems=computer_items_grouped|get_item:pc.id %}
-                    {% for compitem in compitems %}
-                      <h4>{{ compitem.get_type_display }}</h4>
-                      <li>Código: {{ compitem.code }}</li>
-                      <li>Marca: {{ compitem.brand }}</li>
-                      <li>Modelo: {{ compitem.model }}</li>
-                      <li>Descripción: {{ compitem.description }}</li>
-                      {% empty %}
-                      <li>No hay elementos para mostrar.</li>
-                    {% endfor %}
-                  {% endwith %}
-                </ul>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">Cerrar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-3 col-sm-6 mb-4 mt-3">
-          <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{ pc.id }}" class="text-dark text-decoration-none">
-            <div class="card h-100 bg-white" style="border: 2px solid black;">
-              <div class="card-body p-3 text-dark">
-                <div class="row">
-                  <div class="col-8">
-                    <div class="numbers">
-                      <p class="text-sm mb-0 text-uppercase font-weight-bold">PC {{ pc.code }}</p>
-                      <span>{{ pc.lab_id.name }}</span>
-                    </div>
+      <div class="col-xl-3 col-sm-6 mb-4 mt-3">
+        <a href={% url 'main:comp_items' pc.id %} class="text-dark text-decoration-none">
+          <div class="card h-100 bg-white" style="border: 2px solid black;">
+            <div class="card-body p-3 text-dark">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">PC {{ pc.code }}</p>
+                    <span>{{ pc.lab_id.name }}</span>
                   </div>
-                  <div class="col-4 text-end">
-                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                      <i class="fas fa-desktop text-lg opacity-10" aria-hidden="true"></i>
-                    </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                    <i class="fas fa-desktop text-lg opacity-10" aria-hidden="true"></i>
                   </div>
                 </div>
               </div>
             </div>
-          </a>
-        </div>
+          </div>
+        </a>
+      </div>
       {% endfor %}
     </div>
   </div>
