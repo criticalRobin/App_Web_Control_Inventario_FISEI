@@ -8,155 +8,170 @@ from django.contrib import messages
 from django.utils import timezone
 from apps.main.models import Recommendation
 from apps.main.forms import StudentRecommendationForm
-from apps.main.models import Laboratory, Computer, Recommendation, Task, LabItem, ComputerItem
-from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView,PasswordChangeView
-from .forms import RegistrationForm, LoginForm, UserPasswordResetForm, UserSetPasswordForm, UserPasswordChangeForm
+from apps.main.models import (
+    Laboratory,
+    Computer,
+    Recommendation,
+    Task,
+    LabItem,
+    ComputerItem,
+)
+from django.contrib.auth.views import (
+    LoginView,
+    PasswordResetView,
+    PasswordResetConfirmView,
+    PasswordChangeView,
+)
+from .forms import (
+    RegistrationForm,
+    LoginForm,
+    UserPasswordResetForm,
+    UserSetPasswordForm,
+    UserPasswordChangeForm,
+)
+import datetime
+from django.db.models.functions import ExtractMonth
+
+
 # Create your views here.
 def dashboard_stats_view(request):
-    # Aquí puedes agregar la lógica para calcular las estadísticas de tus modelos.
-    # Por ejemplo, puedes contar cuántos de cada objeto hay:
     computer_count = Computer.objects.count()
-    
-    # ...haz esto para cada modelo que necesites...
-
-    # Si necesitas estadísticas mensuales como en el ejemplo, necesitarás un modelo con una fecha
-    # para poder hacer un TruncMonth como se hizo con Order en tu ejemplo.
-    # Vamos a asumir que tienes un modelo con una fecha y repetir el patrón:
-    # items_by_month = (
-    #     ModeloConFecha.objects.annotate(month=TruncMonth("fecha"))
-    #     .values("month")
-    #     .annotate(total=Count("id"))
-    #     .order_by("month")
-    # )
-    # months = [item["month"].strftime("%b") for item in items_by_month]
-    # totals = [item["total"] for item in items_by_month]
-
-    # Aquí asumimos que tienes un contexto que incluye usuarios y tareas como en el ejemplo:
     users_count = User.objects.count()
     tasks_count = Task.objects.count()
-     # Obtener el usuario actual, asumiendo que la solicitud está autenticada
     current_user = request.user
+    reccoms_count = Recommendation.objects.count()
+    labs_count = Laboratory.objects.count()
 
-    # Contar las computadoras asignadas al usuario
-    computers_assigned_count = Computer.objects.filter(responsible_user_id=current_user).count()
+    computers_assigned_count = Computer.objects.filter(
+        responsible_user_id=current_user
+    ).count()
 
-    # Contar las tareas asignadas al usuario
     tasks_assigned_count = Task.objects.filter(user_id=current_user).count()
-    #contar las recomendaciones hechas por el usuario
     recommendations_count = Recommendation.objects.filter(user_id=current_user).count()
-    #contar los laboratorios asignados al usuario
-    laboratory_assigned_count = Laboratory.objects.filter(responsible_user_id=current_user).count()
-    # Construye el contexto con la información que hayas reunido:
-    
-    
-    #--------------------------
+    laboratory_assigned_count = Laboratory.objects.filter(
+        responsible_user_id=current_user
+    ).count()
+
     computer_list = Computer.objects.filter(responsible_user_id=current_user)
     task_list = Task.objects.filter(user_id=current_user)
     recommendation_list = Recommendation.objects.filter(user_id=current_user)
     laboratory_list = Laboratory.objects.filter(responsible_user_id=current_user)
-    
+
+    current_year = datetime.datetime.now().year
+    tasks_created_monthly = (
+        Task.objects.filter(date__year=current_year)
+        .annotate(month=ExtractMonth("date"))
+        .values("month")
+        .annotate(count=Count("id"))
+        .order_by("month")
+    )
+
     context = {
+        "tasks_created_monthly": tasks_created_monthly,
         "lab_count": laboratory_assigned_count,
         "computer_count": computer_count,
-      
-        # ...continúa agregando el resto de las cuentas que calculaste...
+        "reccoms_count": reccoms_count,
+        "labs_count": labs_count,
         "users_count": users_count,
         "tasks_count": tasks_count,
-        # "items_chart_data": {
-        #     "months": months,
-        #     "totals": totals,
-        # },
-        
-        'computers_assigned_count': computers_assigned_count,
-        'tasks_assigned_count': tasks_assigned_count,
-        'recommendations_count': recommendations_count,
-        
-        #------------------
-        'computer_list': computer_list,
-        'task_list': task_list,
-        'recommendation_list': recommendation_list,
-        'laboratory_list': laboratory_list,
+        "computers_assigned_count": computers_assigned_count,
+        "tasks_assigned_count": tasks_assigned_count,
+        "recommendations_count": recommendations_count,
+        "computer_list": computer_list,
+        "task_list": task_list,
+        "recommendation_list": recommendation_list,
+        "laboratory_list": laboratory_list,
     }
 
-    # No renderizamos la plantilla aquí, solo devolvemos el contexto
     return context
+
 
 def argon_dashboard_view(request):
     context = dashboard_stats_view(request)
-    return render(request, 'pages/dashboard.html', context)
+    return render(request, "pages/dashboard.html", context)
+
 
 def index(request):
-  return render(request, 'pages/dashboard.html')
+    return render(request, "pages/dashboard.html")
+
 
 def billing(request):
-  return render(request, 'pages/billing.html')
+    return render(request, "pages/billing.html")
+
 
 def profile(request):
-  return render(request, 'pages/profile.html')
+    return render(request, "pages/profile.html")
+
 
 def tables(request):
-  return render(request, 'pages/tables.html')
+    return render(request, "pages/tables.html")
+
 
 def rtl(request):
-  return render(request, 'pages/rtl.html')
+    return render(request, "pages/rtl.html")
+
 
 def vr(request):
-  return render(request, 'pages/virtual-reality.html')
+    return render(request, "pages/virtual-reality.html")
+
 
 def home_view(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = StudentRecommendationForm(request.POST)
         if form.is_valid():
             recommendation = form.save(commit=False)
-            # Establecer el usuario por defecto (ID 3)
             recommendation.user_id_id = 3
             recommendation.date = timezone.now()
             recommendation.save()
-            messages.success(request, 'Se envió la recomendación con éxito.')
+            messages.success(request, "Se envió la recomendación con éxito.")
 
     else:
         form = StudentRecommendationForm()
-    return render(request, 'home_page.html', {'form': form})
+    return render(request, "home_page.html", {"form": form})
+
 
 def register(request):
-  if request.method == 'POST':
-    form = RegistrationForm(request.POST)
-    if form.is_valid():
-      form.save()
-      print("Account created successfully!")
-      return redirect('/accounts/login/')
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print("Account created successfully!")
+            return redirect("/accounts/login/")
+        else:
+            print("Registration failed!")
     else:
-      print("Registration failed!")
-  else:
-    form = RegistrationForm()
+        form = RegistrationForm()
 
-  context = { 'form': form }
-  return render(request, 'accounts/sign-up.html', context)
+    context = {"form": form}
+    return render(request, "accounts/sign-up.html", context)
 
 
 class UserLoginView(LoginView):
-  template_name = 'accounts/sign-in.html'
-  form_class = LoginForm
-  def get_success_url(self):
+    template_name = "accounts/sign-in.html"
+    form_class = LoginForm
+
+    def get_success_url(self):
         user = self.request.user
         if user.is_superuser:
-            return '/admin/'  # O la URL que quieras para superusuarios
+            return "/admin/"  # O la URL que quieras para superusuarios
         return super().get_success_url()
 
 
 class UserPasswordResetView(PasswordResetView):
-  template_name = 'accounts/password_reset.html'
-  form_class = UserPasswordResetForm
+    template_name = "accounts/password_reset.html"
+    form_class = UserPasswordResetForm
 
 
 class UserPasswordResetConfirmView(PasswordResetConfirmView):
-  template_name = 'accounts/password_reset_confirm.html'
-  form_class = UserSetPasswordForm
+    template_name = "accounts/password_reset_confirm.html"
+    form_class = UserSetPasswordForm
+
 
 class UserPasswordChangeView(PasswordChangeView):
-  template_name = 'accounts/password_change.html'
-  form_class = UserPasswordChangeForm
+    template_name = "accounts/password_change.html"
+    form_class = UserPasswordChangeForm
+
 
 def user_logout_view(request):
-  logout(request)
-  return redirect('/homepage')
+    logout(request)
+    return redirect("/homepage")
