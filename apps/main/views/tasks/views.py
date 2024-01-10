@@ -58,7 +58,7 @@ class TaskCreateView(CreateView):
 class TaskUpdateView(UpdateView):
     model = Task
     form_class = UpdateTaskForm
-    template_name = "recomms/update.html"
+    template_name = "tasks/update.html"
     success_url = reverse_lazy("main:tasks_list")
 
     def get_context_data(self, **kwargs):
