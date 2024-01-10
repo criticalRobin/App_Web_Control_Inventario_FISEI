@@ -108,15 +108,27 @@ def home_view(request):
         form = StudentRecommendationForm(request.POST)
         if form.is_valid():
             recommendation = form.save(commit=False)
+            
+            # Obtener el objeto Laboratory desde el formulario
+            lab = form.cleaned_data['id_lab']
+
+            # Asignar el ID del laboratorio a la recomendación
+            recommendation.id_lab_id = lab.id
+
             # Establecer el usuario por defecto (ID 3)
             recommendation.user_id_id = 3
+            
             recommendation.date = timezone.now()
             recommendation.save()
+            
             messages.success(request, 'Se envió la recomendación con éxito.')
+            form = StudentRecommendationForm()
 
     else:
         form = StudentRecommendationForm()
+
     return render(request, 'home_page.html', {'form': form})
+
 
 def register(request):
   if request.method == 'POST':
