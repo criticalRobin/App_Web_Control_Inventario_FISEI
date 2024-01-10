@@ -87,11 +87,13 @@ class StudentRecommendationForm(forms.ModelForm):
             form.field.widget.attrs["placeholder"] = (
                 form.label[0].capitalize() + form.label[1:].lower()
             )
+            if form.name == 'description':
+                form.field.widget.attrs["class"] = "custom-description-field"
         self.fields["description"].widget.attrs["autofocus"] = True
 
     class Meta:
         model = Recommendation
-        fields = ["name", "description"]
+        fields = ["name", "description","id_lab"]
 
 class CreateTaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

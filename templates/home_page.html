@@ -40,15 +40,64 @@
     </div>
 </header>
 
+<div class="col-md-4 col-sm-4 price-box price-box--violet mx-auto text-center">
+  <div class="price-box__wrap">
+      <h1 class="price-box__title">
+        Bienvenido al Sistema de Inventario de la FISEI
+      </h1>
+
+      <p class="price-box__feat">
+        Es un sistema el cual gestionará todo el inventario de los objetos que se encuentran en los laboratorios, pudiendo actualizarlos o cambiarlos de lugar.
+      </p>
+      
+  </div>
+</div>
+
+<div class="col-md-4 col-sm-4 price-box price-box--violet mx-auto text-center">
+  <div class="price-box__wrap">
+      <h1 class="price-box__title">
+        Apartado Técnicos
+      </h1>
+     
+      <p class="price-box__feat">
+       Los técnicos son los usuarios encargados del manejo del sistema, pueden realizar las siguientes funciones.
+      </p>
+      <ul class="price-box__list">
+        <li class="price-box__list-el">Creación y designación de tareas</li>
+        <li class="price-box__list-el">Actualización de equipos</li>
+        <li class="price-box__list-el">Creación y edición de recomendaciones</li>
+      </ul>
+  </div>
+</div>
+
+<div class="col-md-4 col-sm-4 price-box price-box--violet mx-auto text-center">
+  <div class="price-box__wrap">
+      <h1 class="price-box__title">
+        Apartado Estudiantes
+      </h1>
+      <p class="price-box__feat">
+        Los estudiantes podrán realizar recomendaciones sobre diferentes eventos que pueden ocurrir dentro de un laboratorio. 
+        El formulario se encuentra en la parte inferior de la página, y cuenta con los siguientes campos.  
+      </p>
+      <ul class="price-box__list">
+        <li class="price-box__list-el">Nombre</li>
+        <li class="price-box__list-el">Descripción</li>
+        <li class="price-box__list-el">Laboratorio</li>
+      </ul>
+  </div>
+</div>
+
+
+
 <div class="sect sect--padding-bottom">
+  <div> </div>
   <div class="container">
     <div class="row">
-      <h1 class="row__title">Formulario</h1>
+      <h1 class="row__title1">ass</h1>
+      <h1 class="row__title">Formulario Recomendaciones Estudiantes</h1>
     </div>
 
-
-
-    
+    <div class="form-container">
     <div class="row row--margin">
       <div class="col-md-3"></div>
       <div class="col-md-6">
@@ -67,13 +116,9 @@
       </div>
       <div class="col-md-1"></div>
     </div>
-  
-
-
+  </div>
   </div>
 </div>
-
-
 
 <footer class="footer">
   <div class="container">
@@ -91,7 +136,79 @@
 
 
 <style>
+
+  .form-container {
+    border: 1px solid #ddd; /* Añade un borde alrededor del contenedor */
+    padding: 10px; /* Ajusta el espacio interno del contenedor */
+    border-radius: 10px; /* Agrega bordes redondeados al contenedor */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega una sombra al contenedor */
+    margin-top: 20px; /* Ajusta el margen superior del contenedor */
+  }
+
+/* Estilos para el formulario */
+.form {
+  margin-top: 10px; /* Ajusta el margen superior del formulario */
+}
+
+/* Estilos para los campos del formulario */
+.form input,
+.form textarea {
+  width: 100%; /* Hace que los campos ocupen el ancho completo del contenedor */
+  padding: 10px; /* Ajusta el espacio interno de los campos */
+  margin-bottom: 15px; /* Añade espacio entre los campos */
+}
+
+/* Estilos para el botón de enviar */
+.form button {
+  background-color: black; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Ajusta el espacio interno del botón */
+  border: none; /* Quita el borde del botón */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Estilos para los mensajes */
+.messages {
+  margin-top: 20px; /* Ajusta el margen superior de los mensajes */
+}
+
+/* Estilos para los mensajes individuales */
+.messages div {
+  padding: 10px; /* Ajusta el espacio interno de cada mensaje */
+  margin-bottom: 10px; /* Añade espacio entre los mensajes */
+  border: 1px solid #ddd; /* Agrega un borde alrededor de cada mensaje */
+}
+
+/* Estilos para los mensajes de éxito */
+.messages .success {
+  background-color: gray; /* Color de fondo para mensajes de éxito */
+  color: white; /* Color del texto para mensajes de éxito */
+}
+
+/* Estilos para los mensajes de error */
+.messages .error {
+  background-color: #f44336; /* Color de fondo para mensajes de error */
+  color: white; /* Color del texto para mensajes de error */
+}
+
+
+
+
+
+
+
+
+
+
+
   @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
+
+  .custom-description-field {
+    
+    height: 80px; 
+    width: 350px;
+    
+  }
 
 /*Reset*/
 html, body{
@@ -144,7 +261,7 @@ background-image: url("https://image.ibb.co/de6JzG/bitmap_1_1.png");
   text-align: center;
   font-size: 26px;
   font-weight: 400;
-  margin-top: 0px;
+  margin-top: 40px;
 }
 
 .row__sub{
@@ -172,36 +289,6 @@ background-image: url("https://image.ibb.co/de6JzG/bitmap_1_1.png");
   -o-transition: all 0.4s;
 }
 
-.price-box__img{
-  display: inline-block;
-}
-
-.price-box__img{
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  background-position: center;
-    background-size:cover;
-  background-repeat:no-repeat;
-}
-
-
-
-.price-box--purple .price-box__img{
-  background-image: url("https://image.ibb.co/iGjEKG/1.png");
-
-}
-
-
-.price-box--violet .price-box__img{
-  background-image: url("https://image.ibb.co/iyT8eG/2.png");
-
-}
-
-.price-box--blue .price-box__img{
-  background-image: url("https://preview.ibb.co/nDRpmw/3.png");
-
-}
 
 .price-box__title{
   font-size:22px;
@@ -260,6 +347,8 @@ background-image: url("https://image.ibb.co/de6JzG/bitmap_1_1.png");
 .price-box__feat {
     margin-top: 30px;
     font-size: 16px;
+    text-align: justify;
+
 }
 
 .price-box__list {
@@ -360,20 +449,20 @@ color: #fff;
     background-color: #3a9fff;
 }
 .btn--blue:hover {
-    background-color: #63b2fc;
+    background-color: white;
 }
 .btn--width{
   width: 120px;
 }
 
 .btn--white{
-  background-color: #fff;
+  background-color: black;
   border: 1px solid #ededed;
-  color: #8198ae;
+  color: white;
 }
 
 .btn--white:hover{
-  background-color: #fff;
+  background-color: white;
   color: #8198ae;
 }
 
@@ -785,6 +874,10 @@ width: 100%;
   height:200px;
 }
 
+.row__title1 {
+  color: rgba(0, 0, 0, 0); 
+ }
+
 .btn--up{
   position: absolute;
 bottom: -15px;
@@ -814,7 +907,7 @@ left: 20%;
 
 
 .footer{
- background-color: #1f4467; 
+ background-color: black; 
   padding: 40px 0; 
 }
 
@@ -826,7 +919,7 @@ margin-left: 10px;
 display: inline-block;
 line-height: 18px;
 vertical-align: middle;
-  color:#3a9fff;
+  color:white;
 }
 
 .footer__light{
@@ -996,10 +1089,7 @@ vertical-align: middle;
     font-size: 18px;
     margin-top: 10px;
 }
-  .price-box__img {
-    width: 100px;
-    height: 100px;
-  }
+
   .price-box__wrap {
     padding: 20px 20px 30px 20px;
   }
