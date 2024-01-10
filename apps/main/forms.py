@@ -2,17 +2,10 @@ from django import forms
 from .models import (
     Computer,
     Laboratory,
-    Projector,
     Recommendation,
-    Cpu,
-    Monitor,
     Task,
-    Processor,
-    Disk,
-    Ram,
-    Security_camera,
-    Air_Conditioner,
-    Regulator_voltage,
+    LabItem,
+    ComputerItem,
 )
 
 
@@ -30,6 +23,9 @@ class CreateLaboratoryForm(forms.ModelForm):
     class Meta:
         model = Laboratory
         fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':5, 'cols':30}),
+        }
 
 
 class CreateComputerForm(forms.ModelForm):
@@ -47,7 +43,7 @@ class CreateComputerForm(forms.ModelForm):
         fields = "__all__"
 
 
-class CreateProjectorForm(forms.ModelForm):
+class CreateLabItemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
@@ -58,8 +54,11 @@ class CreateProjectorForm(forms.ModelForm):
         self.fields["brand"].widget.attrs["autofocus"] = True
 
     class Meta:
-        model = Projector
+        model = LabItem
         fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':5, 'cols':30}),
+        }
 
 
 class CreateRecommendationForm(forms.ModelForm):
@@ -74,8 +73,27 @@ class CreateRecommendationForm(forms.ModelForm):
 
     class Meta:
         model = Recommendation
-        fields = ["description", "computer_id", "user_id"]
+        fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':2, 'cols':30}),
+        }
 
+
+class StudentRecommendationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for form in self.visible_fields():
+            form.field.widget.attrs["autocomplete"] = "off"
+            form.field.widget.attrs["placeholder"] = (
+                form.label[0].capitalize() + form.label[1:].lower()
+            )
+            if form.name == 'description':
+                form.field.widget.attrs["class"] = "custom-description-field"
+        self.fields["description"].widget.attrs["autofocus"] = True
+
+    class Meta:
+        model = Recommendation
+        fields = ["name", "description","id_lab"]
 
 class CreateTaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -89,25 +107,13 @@ class CreateTaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ["description", "user_id"]
-
-
-class CreateMonitorForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for form in self.visible_fields():
-            form.field.widget.attrs["autocomplete"] = "off"
-            form.field.widget.attrs["placeholder"] = (
-                form.label[0].capitalize() + form.label[1:].lower()
-            )
-        self.fields["model"].widget.attrs["autofocus"] = True
-
-    class Meta:
-        model = Monitor
         fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':2, 'cols':30}),
+        }
 
 
-class CreateCpuForm(forms.ModelForm):
+class CreateComputerItem(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
@@ -118,95 +124,66 @@ class CreateCpuForm(forms.ModelForm):
         self.fields["brand"].widget.attrs["autofocus"] = True
 
     class Meta:
-        model = Cpu
+        model = ComputerItem
         fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':5, 'cols':30}),
+        }
 
-
-class CreateRamForm(forms.ModelForm):
+class UpdateLaboratoryForm(CreateLaboratoryForm):
+    class Meta:
+        model = Laboratory
+        fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':5, 'cols':30}),
+        }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for form in self.visible_fields():
-            form.field.widget.attrs["autocomplete"] = "off"
-            form.field.widget.attrs["placeholder"] = (
-                form.label[0].capitalize() + form.label[1:].lower()
-            )
-        self.fields["brand"].widget.attrs["autofocus"] = True
+        self.fields['name'].disabled = True
+        
 
+class UpdateComputerForm(CreateComputerForm):
     class Meta:
-        model = Ram
+        model = Computer
         fields = "__all__"
-
-
-class CreateDiskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for form in self.visible_fields():
-            form.field.widget.attrs["autocomplete"] = "off"
-            form.field.widget.attrs["placeholder"] = (
-                form.label[0].capitalize() + form.label[1:].lower()
-            )
-        self.fields["brand"].widget.attrs["autofocus"] = True
+        self.fields['code'].disabled = True
 
+class UpdateLabItemForm(CreateLabItemForm):
     class Meta:
-        model = Disk
+        model = LabItem
         fields = "__all__"
-
-
-class CreateProcessorForm(forms.ModelForm):
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':5, 'cols':30}),
+        }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for form in self.visible_fields():
-            form.field.widget.attrs["autocomplete"] = "off"
-            form.field.widget.attrs["placeholder"] = (
-                form.label[0].capitalize() + form.label[1:].lower()
-            )
-        self.fields["brand"].widget.attrs["autofocus"] = True
+        self.fields['code'].disabled = True
 
+class UpdateRecommendationForm(CreateRecommendationForm):
     class Meta:
-        model = Processor
+        model = Recommendation
         fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':2, 'cols':30}),
+        }
 
+class UpdateTaskForm(CreateTaskForm):
+    class Meta:
+        model = Task
+        fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':2, 'cols':30}),
+        }
 
-class CreateSecurityCameraForm(forms.ModelForm):
+class UpdateComputerItemForm(CreateComputerItem):
+    class Meta:
+        model = ComputerItem
+        fields = "__all__"
+        widgets = {
+            'description': forms.Textarea(attrs={'rows':5, 'cols':30}),
+        }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for form in self.visible_fields():
-            form.field.widget.attrs["autocomplete"] = "off"
-            form.field.widget.attrs["placeholder"] = (
-                form.label[0].capitalize() + form.label[1:].lower()
-            )
-        self.fields["brand"].widget.attrs["autofocus"] = True
-
-    class Meta:
-        model = Security_camera
-        fields = "__all__"
-
-
-class CreateRegulatorVoltageForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for form in self.visible_fields():
-            form.field.widget.attrs["autocomplete"] = "off"
-            form.field.widget.attrs["placeholder"] = (
-                form.label[0].capitalize() + form.label[1:].lower()
-            )
-        self.fields["brand"].widget.attrs["autofocus"] = True
-
-    class Meta:
-        model = Regulator_voltage
-        fields = "__all__"
-
-
-class CreateAirConditionerForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for form in self.visible_fields():
-            form.field.widget.attrs["autocomplete"] = "off"
-            form.field.widget.attrs["placeholder"] = (
-                form.label[0].capitalize() + form.label[1:].lower()
-            )
-        self.fields["brand"].widget.attrs["autofocus"] = True
-
-    class Meta:
-        model = Air_Conditioner
-        fields = "__all__"
+        self.fields['code'].disabled = True

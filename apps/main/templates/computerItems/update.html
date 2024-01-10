@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+{% load i18n static %}
+
+{% block title %}
+  Editar item computadora
+{% endblock %}
+
+{% block overlay %}
+  <div class="min-height-300 bg-danger position-absolute w-100"></div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>{{ title }}</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <form method="post" class="form">
+              {% csrf_token %}
+              <table class="table align-items-center justify-content-center mb-0">
+                {% for field in form %}
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">{{ field.label_tag }}</th>
+                  
+                  <td>
+                    {% if field.errors %}
+                    <span class="text-danger">{{ field.errors }}</span>
+                  {% endif %}
+                    {{ field }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="2">
+                    <button type="submit" class="btn btn-info">Actualizar</button>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include 'includes/footer.html' %}
+</div>
+{% endblock %}

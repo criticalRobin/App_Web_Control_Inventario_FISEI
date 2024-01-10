@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+LOGIN_REDIRECT_URL = "home:index"
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,8 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "tailwind",
-    "theme",
+    # "tailwind",
+    # "theme",
     "widget_tweaks",
     "django_browser_reload",
     "apps.main",
@@ -50,7 +52,7 @@ INSTALLED_APPS = [
     "home",
 ]
 
-TAILWIND_APP_NAME = "theme"
+# TAILWIND_APP_NAME = "theme"
 
 INTERNAL_IPS = [
     "127.0.0.1",

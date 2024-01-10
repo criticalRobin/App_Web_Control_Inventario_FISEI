@@ -1,0 +1,74 @@
+{% extends 'pages/dashboard.html' %}
+{% load extra_filters %}
+{% load static %}
+{% block dcontent %}
+  <div class="container-fluid pt-4 mt-6">
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0 d-flex justify-content-center">
+                <table class="table mb-0 text-center align-middle">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-dark text-xs font-weight-bolder opacity-7" scope="col">Código</th>
+                      <th class="text-uppercase text-dark text-xs font-weight-bolder opacity-7" scope="col">Tipo</th>
+                      <th class="text-uppercase text-dark text-xs font-weight-bolder opacity-7" scope="col">Comp. Perteneciente</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in computer_items %}
+                      <!-- Modal -->
+                      <div class="modal fade" id="modal{{ item.id }}" tabindex="-1" aria-labelledby="modalLabel{{ item.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <!-- Cabecera del modal -->
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="modalLabel{{ item.id }}">Información {{ item.get_type_display }}</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <!-- Cuerpo del modal -->
+                            <div class="modal-body">
+                              <ul class="text-dark">
+                                <li>Código: {{ item.code }}</li>
+                                <li>Marca: {{ item.brand }}</li>
+                                <li>Modelo: {{ item.model }}</li>
+                                <li>Descripción: {{ item.description }}</li>
+                                <li>Computador: {{ item.id_computer }}</li>
+                              </ul>
+                            </div>
+                            <!-- Pie de página del modal -->
+                            <div class="modal-footer">
+                              <button type="button" class="btn bg-danger text-white" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <tr>
+                        <td class="align-middle">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{ item.id }}"><p class="text-sm font-weight-bold mb-0">{{ item.code }}</p></a>
+                        </td>
+                        <td class="align-middle">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{ item.id }}"><p class="text-sm font-weight-bold mb-0">{{ item.get_type_display }}</p></a>
+                        </td>
+                        <td class="align-middle">
+                          <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{ item.id }}"><p class="text-sm font-weight-bold mb-0">{{ item.id_computer }}</p></a>
+                        </td>
+                      </tr>
+                      {% empty %}
+                      <tr>
+                        <td colspan="3" class="text-center">No hay items pertenecientes a este computador.</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include 'includes/footer.html' %}
+    </div>
+  </div>
+{% endblock %}

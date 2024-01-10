@@ -1,0 +1,32 @@
+{% extends 'pages/dashboard.html' %}
+{% load extra_filters %}
+{% load static %}
+{% block dcontent %}
+  <div class="container-fluid pt-4 mt-6">
+    <div class="row">
+      {% for pc in computers %}
+        <div class="col-xl-3 col-sm-6 mb-4 mt-3">
+          <a href={% url 'main:comp_items' pc.id %} class="text-dark text-decoration-none">
+            <div class="card h-100 bg-white" style="border: 2px solid black;">
+              <div class="card-body p-3 text-dark">
+                <div class="row">
+                  <div class="col-8">
+                    <div class="numbers">
+                      <p class="text-sm mb-0 text-uppercase font-weight-bold">PC {{ pc.code }}</p>
+                      <span>{{ pc.lab_id.name }}</span>
+                    </div>
+                  </div>
+                  <div class="col-4 text-end">
+                    <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                      <i class="fas fa-desktop text-lg opacity-10" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
