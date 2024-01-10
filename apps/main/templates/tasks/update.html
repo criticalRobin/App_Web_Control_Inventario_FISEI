@@ -48,3 +48,24 @@
   {% include 'includes/footer.html' %}
 </div>
 {% endblock %}
+
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('#id_recommendation_id').change(function(){
+    var recommendation_id = $(this).val();
+    $.ajax({
+      url: '{% url 'main:get_laboratory' %}',  // URL de tu vista que devuelve el laboratorio de la recomendación
+      data: {
+        'recommendation_id': recommendation_id
+      },
+      dataType: 'json',
+      success: function (data) {
+        $('#id_id_lab').val(data.laboratory_id);
+      }
+    });
+  });
+});
+</script>
+{% endblock scripts %}
