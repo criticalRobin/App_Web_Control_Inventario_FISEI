@@ -7,7 +7,7 @@ from django.views.generic import ListView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from home.views import dashboard_stats_view
-
+from django.http import JsonResponse
 
 class TaskListView(ListView):
     template_name = "tasks/list.html"
@@ -75,3 +75,11 @@ class TaskUpdateView(UpdateView):
         context = self.get_context_data(**kwargs)
         context["form"] = form
         return render(request, self.template_name, context)
+
+def get_laboratory(request):
+    recommendation_id = request.GET.get('recommendation_id')
+    recommendation = Recommendation.objects.get(id=recommendation_id)
+    print(recommendation)
+    laboratory_id = recommendation.id_lab.id
+    print(laboratory_id)
+    return JsonResponse({'laboratory_id': laboratory_id})

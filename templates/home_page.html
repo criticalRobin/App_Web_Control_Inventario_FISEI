@@ -109,7 +109,9 @@
        {% if messages %}
           <div class="messages">
             {% for message in messages %}
-              <div class="{{ message.tags }}">{{ message }}</div>
+              {% if 'form_message' in message.tags %}
+                <div class="{{ message.tags }}">{{ message }}</div>
+              {% endif %}
             {% endfor %}
           </div>
         {% endif %}
