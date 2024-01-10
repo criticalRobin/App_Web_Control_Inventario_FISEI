@@ -108,6 +108,8 @@ class Recommendation(models.Model):
     user_id = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name="Usuario" , default = 3
     )
+    
+    id_lab = models.ForeignKey(Laboratory, on_delete=models.PROTECT, verbose_name="Laboratorio perteneciente")
     date = models.DateField(default=timezone.now, verbose_name="Fecha")
     
     
