@@ -58,4 +58,6 @@ urlpatterns = [
         ComputerItemsByPcList.as_view(),
         name="comp_items",
     ),
+    
+    path("get-laboratory/", get_laboratory, name="get_laboratory")
 ]

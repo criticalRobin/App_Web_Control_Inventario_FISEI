@@ -152,6 +152,9 @@ class Task(models.Model):
         ("completed", "Completada"),
     )
     status = models.CharField(choices=STATUS_CHOICES, max_length=20, default="pending")
+    id_lab = models.ForeignKey(
+        Laboratory, on_delete=models.PROTECT, verbose_name="Laboratorio perteneciente"
+    )
     date = models.DateField(default=timezone.now, verbose_name="Fecha")
 
     def __str__(self):

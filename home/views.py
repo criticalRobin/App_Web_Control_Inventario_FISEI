@@ -133,7 +133,7 @@ def home_view(request):
             recommendation.date = timezone.now()
             recommendation.save()
             
-            messages.success(request, 'Se envió la recomendación con éxito.')
+            messages.add_message(request, messages.INFO, 'Se envió la recomendación con éxito.', extra_tags='form_message')
             form = StudentRecommendationForm()
 
     else:
